@@ -1,0 +1,3 @@
+function holatodos(){
+	alert("hola");
+}
