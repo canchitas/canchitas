@@ -8,7 +8,7 @@
 	<!--  -->
 </head>
 <body>
-	<h2>Pueva</h2>
+	<h2>Pueva2</h2>
 	<form id="login" method="post">
 		<label>usuario</label>
 		<input type="text" name="usuario">
