@@ -1,0 +1,172 @@
+body {
+  padding: 0px;
+  margin: 0;
+}
+
+a{
+	text-decoration: none;
+	list-style-type: none;
+}
+.header{
+	background: url(../img/canchitas2.jpg);
+	background-attachment:fixed;
+	background-position: 100% 100%;
+	background-size:100%;
+	background-repeat: no-repeat;
+	position: fixed;
+	width: 100%;
+	margin-top: -4em;
+	z-index: 1000;
+
+}
+	.header	a{
+	 color: white;
+	 text-decoration: none;
+	}
+	.header h1{
+		font-size: 3em;
+		padding: 0;
+		margin: 0;
+	}
+.header2{
+	background: url(../img/canchitas2.jpg);
+	background-attachment:fixed;
+	background-position: 100% 100%;
+	background-size:100%;
+	background-repeat: no-repeat;
+	position: fixed;
+	width: 100%;
+	margin-top: -4em;
+	z-index: 1000;
+
+}
+	.header2	a{
+	 color: white;
+	 text-decoration: none;
+	}
+	.header2 h1{
+		font-size: 3em;
+		padding: 0;
+		margin: 0;
+	}
+
+		.logotipo{
+			/*background:#006c36;*/
+			padding: 0.5em;
+			text-align: center;
+			margin: 0.5em;
+			border-radius: 1em;
+			opacity: 0.7;
+
+		}
+			.logotipo:hover .logo{
+					transform:rotate(145deg);
+				
+			}
+			.logo,.logo-nombre{
+				display: inline-block;
+				vertical-align: top;
+			}
+			.logo{
+				/*background: blue;*/
+				width: 20%;
+				transition:1s all;
+				/*box-shadow:inset 4px 4px 1px rgba(0,0,0, 0.6),inset -4px -4px 1px rgba(0,0,0, 0.6);*/
+			}
+			.nombre-logo{
+				/*background:blue;*/
+				font-size: 3em;
+				text-align: center;
+				width: 60%;
+				text-shadow:rgba(0, 0, 0, 0.7) 0px 5px 0px, rgba(255, 255, 255, 0.4) 0px 0px 30px;
+			}
+		.logins{
+			padding: 1em;
+		}
+		.logins a{
+			font-size: 1em;
+
+		}
+			.logins span:hover,.logins span:hover a{
+				color: #8ece8e;
+			}
+		.logins span{
+			font-size: 1.2em;
+			color: white;
+		}
+.separador{
+	margin-top: 4em;
+}
+
+
+
+.img-search{
+	width: 20%;
+	display: block;
+	margin: 0 auto;
+}
+
+	#buscar-principal input{
+		/*display: inline-block;*/
+		height: 3.3em;
+		font-size: 1.2em;
+	}
+
+		#buscar-secundario{
+			margin-top: 10%;
+			overflow: hidden;
+			transition:0.5s all;
+
+		}
+			#buscar-secundario input,#buscar-secundario button{
+				height: 3em;
+			}
+			#buscar-secundario i{
+				font-size: 1.7em;
+			}
+
+.suscribete button{
+	font-size: 1.3em;
+}
+
+.desaparecer{
+	display: none;
+			width: 10px;
+}
+.aparecer{
+	display: block;
+}
+	.animacion-aparecer{
+		width: 300px;
+		overflow: none;
+	}
+#pie{
+	background:#23272a;
+	padding:2em 4em 4em 4em;
+	/*border-radius:0px 0px 4px 4px;*/
+	color:white;
+}
+
+/*
+#menu{
+	background:#4c4545;
+}
+#central{
+text-align: center;
+background: white;
+}
+#fondo{
+	background: url(../assets/img/fondo.jpg);
+}
+#buscar{
+	height: 40px;
+	width: 80%;
+}
+#btn-search{
+	height: 40px;
+	width: 65px;
+}
+.masthead{
+	padding-left: 0;
+    padding-right: 0;
+}*/

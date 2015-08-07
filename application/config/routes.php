@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "home";
+
 $route['loginadmin']         = "loginadmin/Loginadmin_c/login";
 $route['campodeportivo/(:num)/:any'] = "home/detalle_campodeportivo/$1/";
 $route['404_override'] = '';

@@ -49,25 +49,12 @@ create table login_cliente(
 
 
 -- *****************lugorares************+++
-create table departamento(
-	id_departamento int auto_increment,
-	nombre varchar(45),
-	primary key(id_departamento)
-);
-create table provincia(
-	id_provincia int auto_increment,
-	nombre varchar(45),
-	iddepartamento int not null,
-	primary key(id_provincia),
-	foreign key(iddepartamento) references departamento(id_departamento)
-);
-
-create table distrito(
-	id_distrito int auto_increment,
-	nombre varchar(45),
-	idprovincia int not null,
-	primary key(id_distrito),
-	foreign key(idprovincia) references provincia(id_provincia)
+create table ubigeo(
+	id int auto_increment,
+	departamento varchar(45) not null,
+	provincia varchar(45) not null,
+	distrito varchar(45) not null,
+	primary key(id)
 );
 
 -- ***********************horarios*****************
@@ -84,22 +71,54 @@ create table campo_deportivo(
 	direccion varchar(45) not null,
 	referencia text,
 	estado char(1) default "1",
-	hora_inicio time,
-	hora_fin time,
+	hora_inicio int,
+	hora_fin int,
 	valoracion int default "0",
-	iddistrito int not null,
+	id int not null,
 	negocio_idadmin int not null,
-	foreign key(iddistrito) references distrito(id_distrito),
+	foreign key(hora_inicio) references horario(idhorario),
+	foreign key(hora_fin) references horario(idhorario),
+	foreign key(id) references ubigeo(id),
 	foreign key(negocio_idadmin) references administrador_negocio(idadmin),
-	primary key(idcampo,iddistrito),
+	primary key(idcampo),
 	unique(negocio_idadmin,idcampo)
 );
-
+CREATE table galeria(
+	idgaleria int auto_increment,
+	url varchar(255),
+	descripcion text,
+	fecha datetime,
+	idcampo int,
+	foreign key(idcampo) references campo_deportivo(idcampo),
+	primary key(idgaleria)
+);
+CREATE  TABLE valoracion(
+	idvaloracion int auto_increment,
+	puntaje ENUM('0','1','2','3','4','5') NOT NULL default '0',
+	idlogin INT NOT NULL ,
+	idcampo INT NOT NULL ,
+	fecha DATETIME NOT NULL,
+	foreign key(idcampo) references campo_deportivo(idcampo),
+	primary key(idvaloracion) 
+);
+-- **************************************COMENTARIO*************************
+create table comentario(
+	idcomentario int auto_increment,
+	comentario text,
+	fecha datetime,
+	idcampo int,
+	idlogin int,
+	foreign key(idlogin) references login_cliente(idlogin_cliente),
+	foreign key(idcampo) references campo_deportivo(idcampo),
+	primary key(idcomentario)
+);
 -- ***************************************reservar************************
 
 create table reserva(
 	idreserva int auto_increment,
-	fecha datetime,
+	fecha_sistema date,
+	hora_sistema time,
+	fecha_reserva date,
 	estado int,
 	idcampo int,
 	idcliente int,
