@@ -13,6 +13,7 @@
   <link href="<?php echo BASE_URL; ?>static/css/signin.css" rel="stylesheet">
   <link href="<?php echo BASE_URL; ?>static/css/miestilo.css" rel="stylesheet">
   <!-- <link href="css/style.css" rel="stylesheet"> -->
+  <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>static/img/icono3.png">
 	<title>Canchitas</title>
 </head>
 <body>

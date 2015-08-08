@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container iniciarsesion">
 <form class="form-registro">
   <div class="panel panel-primary">
         <div class="panel-heading">

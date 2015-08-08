@@ -10,7 +10,7 @@
 
 		function login_sesion(){
 
-	 		// $this->load->view("admin/login");
+	 		$this->load->view("iniciar_sesion");
 	    } 
 	    function logup_sesion(){
 

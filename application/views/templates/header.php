@@ -24,7 +24,7 @@
   			<div class="col-md-4 vertical-align" >
 				  <div class="text-right">
             <div class="row logins">
-				  	  <span><i class="glyphicon glyphicon-user"></i><a href="">Iniciar Sesion</a></span>
+				  	  <span><i class="glyphicon glyphicon-user"></i><a href="<?php echo BASE_URL; ?>logincliente">Iniciar Sesion</a></span>
               <span>|</span>
                <span><i class="glyphicon glyphicon-list"></i><a href=""> Registrarte</a></span>
             </div>  

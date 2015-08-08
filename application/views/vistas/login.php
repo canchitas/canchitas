@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container iniciarsesion">
   <form class="form-signin">
     <h2 class="form-signin-heading">Por favor logeate</h2>
     <input type="text" class="form-control" placeholder="Email address / usuario" autofocus>
