@@ -1,5 +1,6 @@
 
 create table datos_persona(
+	id_persona int auto_increment,
 	dni char(8) not null,
 	nombre varchar(45) not null,
 	apellidos varchar(45) not null,
@@ -8,22 +9,22 @@ create table datos_persona(
 	telefono char(9),
 	celular char(9) not null,
 	sexo char(1),
-	primary key(dni),
+	primary key(id_persona),
 	unique(celular,email)
 );
 
 create table administrador_negocio(
 	idadmin int auto_increment,
-	persona_dni char(8) not null,
-	foreign key(persona_dni) references datos_persona(dni),
-	primary key(idadmin,persona_dni)
+	persona int not null,
+	foreign key(persona) references datos_persona(id_persona),
+	primary key(idadmin,persona)
 );
 
 create table cliente(
 	idcliente int auto_increment,
-	persona_dni char(8) not null,
+	persona int not null,
 	valoracion int default "0",
-	foreign key(persona_dni) references datos_persona(dni),
+	foreign key(persona) references datos_persona(id_persona),
 	primary key(idcliente)
 );
 

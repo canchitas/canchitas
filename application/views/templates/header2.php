@@ -26,7 +26,7 @@
             <div class="row logins">
              <!--  <span><i class="glyphicon glyphicon-user"></i><a href="">Iniciar Sesion</a></span>
               <span>|</span> -->
-               <span><i class="glyphicon glyphicon-list"></i><a href=""> Registrarte</a></span>
+               <span><i class="glyphicon glyphicon-list"></i><a href="<?php echo BASE_URL; ?>registrarse"> Registrarte</a></span>
             </div>  
           </div>
         </div>

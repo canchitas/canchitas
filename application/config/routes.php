@@ -6,6 +6,7 @@
 $route['default_controller'] 			= "home";
 
 $route['logincliente']         			= "login_cliente/login_sesion";
+$route['registrarse']         			= "registrar_cliente/vista_registro";
 
 $route['loginadmin']        		 	= "loginadmin/Loginadmin_c/login";
 $route['campodeportivo/(:num)/:any'] 	= "home/detalle_campodeportivo/$1/";

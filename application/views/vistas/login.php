@@ -1,12 +1,14 @@
+<script type="text/javascript" src="<?php echo BASE_URL; ?>static/ajax/login.js"></script>
 <div class="container iniciarsesion">
-  <form class="form-signin">
+  <form class="form-signin" id="login-cliente" method="post">
     <h2 class="form-signin-heading">Por favor logeate</h2>
-    <input type="text" class="form-control" placeholder="Email address / usuario" autofocus>
-    <input type="password" class="form-control" placeholder="Password">
+    <input type="text" name="usuario" class="form-control" placeholder="Email address / usuario" autofocus>
+    <input type="password" name="password" class="form-control" placeholder="Password">
+    <label class="control-label error-login" for="inputError1"></label>
     <label class="checkbox">
       <input type="checkbox" value="recordar"> Recordar
     </label>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Iniciar sesion">
     <hr> 
     <div class="redes">
       <a class="btn btn-block btn-social btn-facebook">

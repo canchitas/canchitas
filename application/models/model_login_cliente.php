@@ -17,7 +17,8 @@
 				if($init==TRUE){
 					$consulta=$consulta->row();
 					$this->session->set_userdata('usuario',$consulta->usuario);
-					// $this->session->set_userdata('email',$consulta->email);
+					$this->session->set_userdata('id_cliente',$consulta->cliente_idcliente);
+					
 				}
 				return TRUE;
 

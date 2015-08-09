@@ -15,7 +15,7 @@
 	    function logup_sesion(){
 
 	 		$this->session->sess_destroy();
-	 		 // redirect(BASE_URL.'login');
+	 		 redirect(BASE_URL);
 	    } 
 
 	    function verificar(){
@@ -32,6 +32,7 @@
 			$validos="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@$%&/()=.-_";
 			$response->mensaje=array();
 			$response->errors=array();
+			$response->validate=FALSE;
 			if(!empty($usuario) && !empty($password)){
 				$usuario=alfabeto_valido($this->input->post("usuario"),$validos);
 				if($usuario===TRUE){
@@ -46,7 +47,8 @@
 
 								$mensaje=$this->session->userdata('usuario');
 								array_push($response->mensaje,"HOLA $mensaje");
-								// redirect(BASE_URL.'admin');
+								// redirect(BASE_URL);
+								$response->validate=TRUE;
 
 							}
 							else{

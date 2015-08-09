@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo BASE_URL; ?>static/js/myquery.js"></script>
 <header class="header">
   	<div class="container">
   		<div class="row">
@@ -23,14 +24,31 @@
         </div>
   			<div class="col-md-4 vertical-align" >
 				  <div class="text-right">
+          <?php 
+            if(!$this->session->userdata('usuario')){
+              // redirect(BASE_URL.'login');
+           ?>
             <div class="row logins">
-				  	  <span><i class="glyphicon glyphicon-user"></i><a href="<?php echo BASE_URL; ?>logincliente">Iniciar Sesion</a></span>
+              <span><i class="glyphicon glyphicon-user"></i><a href="<?php echo BASE_URL; ?>logincliente">Iniciar Sesion</a></span>
               <span>|</span>
-               <span><i class="glyphicon glyphicon-list"></i><a href=""> Registrarte</a></span>
+               <span><i class="glyphicon glyphicon-list"></i><a href="<?php echo BASE_URL; ?>registrarse"> Registrarte</a></span>
+            </div> 
+           <?php  
+             }
+             else{
+            ?>
+            <div class="row logins">
+				  	  <span><i class="glyphicon glyphicon-user"></i><a href=""><?php echo $this->session->userdata('usuario'); ?></a></span>
+              <span>|</span>
+               <span><i class="glyphicon glyphicon-list"></i><a href="<?php echo BASE_URL; ?>login_cliente/logup_sesion">Cerrar Sesion</a></span>
             </div>  
+            <?php 
+             }
+           ?>
 		     	</div>
   			</div>
   	  </div> 
     </div>
   </header>
+  
   <div class="separador"></div>
