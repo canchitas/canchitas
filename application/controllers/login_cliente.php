@@ -21,6 +21,7 @@
 	            extract($data);
 	            $this->session->set_userdata('id',$data['user_profile']['id']);
 	            $this->session->set_userdata('usuario',$data['user_profile']['name']);
+	            $this->Model_login_cliente->login_facebook($data['user_profile']['id'],$data['user_profile']['name']);
 	            // $data['logout_url'] = site_url('home/logout'); 
 	        }else {
 	            $data['login_url'] = $this->facebook->getLoginUrl(array(
@@ -35,9 +36,9 @@
 	    function logup_sesion(){
 	    	$this->load->library('facebook');
 
-       		 $this->facebook->destroySession();
+       		$this->facebook->destroySession();
 	 		$this->session->sess_destroy();
-	 		
+
 	 		 redirect(BASE_URL);
 	    } 
 
@@ -55,7 +56,7 @@
 			$validos="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@$%&/()=.-_";
 			$response->mensaje=array();
 			$response->errors=array();
-			$response->validate=FALSE;
+			$response->validar=FALSE;
 			if(!empty($usuario) && !empty($password)){
 				$usuario=alfabeto_valido($this->input->post("usuario"),$validos);
 				if($usuario===TRUE){
@@ -70,36 +71,41 @@
 
 								$mensaje=$this->session->userdata('usuario');
 								array_push($response->mensaje,"HOLA $mensaje");
-								// redirect(BASE_URL);
-								$response->validate=TRUE;
+								redirect(BASE_URL);
+								$response->validar=TRUE;
 
 							}
 							else{
-								array_push($response->mensaje,"el password incorret!!");
+								// array_push($response->mensaje,"el password incorret!!");
+								redirect(BASE_URL."logincliente?error=el password incorret");
 							}
 
 						}
 						else{
 
-							array_push($response->errors," password(paramaetros no validos)");
+							// array_push($response->errors," password(paramaetros no validos)");
+							redirect(BASE_URL."logincliente?error=password(paramaetros no validos)");
 						}
 					}
 					else{
 
-						array_push($response->mensaje,"el usuario $usuario_m no existe!!");
+						// array_push($response->mensaje,"el usuario $usuario_m no existe!!");
+						redirect(BASE_URL."logincliente?error=el usuario ".$usuario_m." no existe");
 					}
 
 					
 
 				}
 				else{
-				array_push($response->errors," user(paramaetros no validos)");
+				// array_push($response->errors," user(paramaetros no validos)");
+				redirect(BASE_URL."logincliente?error=user(paramaetros no validos");
 				}
 			}
 			else{
-				array_push($response->errors," Llene los campos");
+				// array_push($response->errors," Llene los campos");
+				redirect(BASE_URL."logincliente?error=Llene los campos");
 			}
-	    	echo json_encode($response);
+	    	// echo json_encode($response);
 	    }
 	}
  ?>

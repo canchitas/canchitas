@@ -7,7 +7,7 @@ create table datos_persona(
 	dni char(8) not null,
 	nombre varchar(45) not null,
 	apellido_paterno varchar(20) NOT NULL,
-  	apellido_materno varchar(20) NOT NULL,
+  apellido_materno varchar(20) NOT NULL,
 	fechanac date,
 	email varchar(45),
 	telefono char(9),
@@ -28,7 +28,7 @@ create table cliente(
 	idcliente int auto_increment,
 	persona int not null,
 	valoracion int default "0",
-  	foto varchar(100) DEFAULT 'default.png',
+  foto varchar(100) DEFAULT 'default.png',
 	foreign key(persona) references datos_persona(id_persona),
 	primary key(idcliente)
 );

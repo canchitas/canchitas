@@ -28,10 +28,30 @@
 			}
 		}
 
-		function login_facebook($id){
-			$this->db->where($id);
+		function login_facebook($id,$usuario){
+			$this->db->where('idfacebook',$id);
 			$this->db->from('login_cliente');
-			// $consulta = $this->
+			$consulta =$this->db->get();
+			if($consulta->num_rows>0){
+
+			}
+			else{
+
+				$this->db->set('nombre', $usuario);
+				$this->db->insert('datos_persona');
+				$id_ultimo=mysql_insert_id();
+
+				
+				$this->db->set('persona' , $id_ultimo);
+				$this->db->insert('cliente');
+
+				$data = array(
+					'idcliente'  => $id_ultimo,
+					'idfacebook' => $id
+					);
+				$this->db->insert('login_cliente',$data);
+
+			}
 		}
 	}
 
