@@ -40,6 +40,7 @@ create table login_admin(
 
 create table login_cliente(
 	idlogin_cliente int auto_increment,
+	id_facebook int,
 	usuario varchar(45) not null,
 	password varchar(100) not null,
 	cliente_idcliente int not null,
@@ -95,7 +96,7 @@ CREATE table galeria(
 );
 CREATE  TABLE valoracion(
 	idvaloracion int auto_increment,
-	puntaje ENUM('0','1','2','3','4','5') NOT NULL default '0',
+	puntaje int(1) NOT NULL default '0',
 	idlogin INT NOT NULL ,
 	idcampo INT NOT NULL ,
 	fecha DATETIME NOT NULL,
