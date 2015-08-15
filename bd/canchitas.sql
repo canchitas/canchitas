@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS login_cliente (
   usuario varchar(45) NOT NULL,
   password char(32) NOT NULL,
   idcliente int(11) NOT NULL,
-  idfacebook int(11) NOT NULL,
+  idfacebook varchar(32) NULL,
   PRIMARY KEY (idlogin_cliente),
   FOREIGN KEY (idcliente) REFERENCES cliente (idcliente)
 );
