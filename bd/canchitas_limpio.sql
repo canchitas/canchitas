@@ -1,26 +1,38 @@
 CREATE DATABASE IF NOT EXISTS canchitas DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE canchitas;
 
-CREATE TABLE IF NOT EXISTS datos_persona (
-  dni char(8) NOT NULL,
-  nombre varchar(45) NOT NULL,
-  apellido_paterno varchar(20) NOT NULL,
-  apellido_materno varchar(20) NOT NULL,
-  fechanac date NOT NULL,
-  email varchar(45) NOT NULL,
-  telefono char(9) DEFAULT NULL,
-  celular char(11) NOT NULL,
-  sexo char(1) NOT NULL,
-  PRIMARY KEY (dni)
+
+create table datos_persona(
+	id_persona int auto_increment,
+	dni char(8) not null,
+	nombre varchar(45) not null,
+	apellido_paterno varchar(20) NOT NULL,
+  	apellido_materno varchar(20) NOT NULL,
+	fechanac date,
+	email varchar(45),
+	telefono char(9),
+	celular char(9) not null,
+	sexo char(1),
+	primary key(id_persona),
+	unique(celular,email)
 );
 
-
-CREATE TABLE IF NOT EXISTS administrador_negocio (
-  idadmin int(11) NOT NULL AUTO_INCREMENT,
-  dni char(8) NOT NULL,
-  PRIMARY KEY (idadmin,dni),
-  FOREIGN KEY (dni) REFERENCES datos_persona (dni)
+create table administrador_negocio(
+	idadmin int auto_increment,
+	persona int not null,
+	foreign key(persona) references datos_persona(id_persona),
+	primary key(idadmin,persona)
 );
+
+create table cliente(
+	idcliente int auto_increment,
+	persona int not null,
+	valoracion int default "0",
+  	foto varchar(100) DEFAULT 'default.png',
+	foreign key(persona) references datos_persona(id_persona),
+	primary key(idcliente)
+);
+
 
 CREATE TABLE IF NOT EXISTS ubigeo (
   id int(11) NOT NULL,
@@ -36,14 +48,6 @@ CREATE TABLE IF NOT EXISTS horario (
   PRIMARY KEY (idhorario)
 );
 
-CREATE TABLE IF NOT EXISTS cliente (
-  idcliente int(11) NOT NULL AUTO_INCREMENT,
-  persona_dni  char(8) NOT NULL,
-  valoracion int(1) NOT NULL DEFAULT '0',
-  foto varchar(100) DEFAULT 'default.png',
-  PRIMARY KEY (idcliente,persona_dni),
-  FOREIGN KEY (persona_dni) REFERENCES datos_persona (dni)
-);
 
 CREATE TABLE IF NOT EXISTS login_admin (
   idlogin_admin int(11) NOT NULL AUTO_INCREMENT,
