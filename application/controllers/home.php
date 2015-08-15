@@ -17,7 +17,12 @@ class Home extends CI_Controller{
 		// $datos['cd'] = $this->campodeportivo->listar_camposdeportivos();
 		// $this->load->view("v_campodeportivo",$datos);
 	}
-
+	function buscar(){
+		$this->load->view("templates/head");
+		$this->load->view("templates/header");
+		$this->load->view("v_listarcamposdeportivos");
+		$this->load->view("templates/footer");
+	}
 	function detalle_campodeportivo($id_cd){
 		$cd = $this->security->xss_clean($id_cd);
 		$datos['detalle'] = $this->campodeportivo->detalle_campodeportivo($cd);

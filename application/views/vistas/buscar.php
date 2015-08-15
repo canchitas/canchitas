@@ -7,7 +7,7 @@
   		  	<img class="img-responsive img-search col-md-12" src="<?php echo BASE_URL; ?>static/img/icono3.png" alt="">
         </div>
         <div id="buscar-principal">
-    			<form action="" id="" class="container">
+    			<form action="<?php echo BASE_URL;?>home/buscar" id="" class="container">
             <div class="row">
               <div class="col-md-9">
     				    <input type="search" class="form-control " placeholder="buscar: ejemplo Puno">

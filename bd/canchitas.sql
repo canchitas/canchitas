@@ -1,142 +1,265 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.4.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 15-08-2015 a las 23:08:04
+-- Versión del servidor: 5.6.11
+-- Versión de PHP: 5.5.1
 
-CREATE DATABASE IF NOT EXISTS canchitas DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE canchitas;
-
-CREATE TABLE IF NOT EXISTS datos_persona (
-  dni char(8) NOT NULL,
-  nombre varchar(45) NOT NULL,
-  apellido_paterno varchar(20) NOT NULL,
-  apellido_materno varchar(20) NOT NULL,
-  fechanac date NOT NULL,
-  email varchar(45) NOT NULL,
-  telefono char(9) DEFAULT NULL,
-  celular char(11) NOT NULL,
-  sexo char(1) NOT NULL,
-  PRIMARY KEY (dni)
-);
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
-CREATE TABLE IF NOT EXISTS administrador_negocio (
-  idadmin int(11) NOT NULL AUTO_INCREMENT,
-  dni char(8) NOT NULL,
-  PRIMARY KEY (idadmin,dni),
-  FOREIGN KEY (dni) REFERENCES datos_persona (dni)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
-CREATE TABLE IF NOT EXISTS ubigeo (
-  id int(11) NOT NULL,
-  departamento varchar(45) NOT NULL,
-  provincia varchar(45) NOT NULL,
-  distrito varchar(45) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY id (id)
-);
-CREATE TABLE IF NOT EXISTS horario (
-  idhorario int(11) NOT NULL AUTO_INCREMENT,
-  hora time NOT NULL,
-  PRIMARY KEY (idhorario)
-);
+--
+-- Base de datos: `canchitas`
+--
+CREATE DATABASE IF NOT EXISTS `canchitas` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `canchitas`;
 
-CREATE TABLE IF NOT EXISTS cliente (
-  idcliente int(11) NOT NULL AUTO_INCREMENT,
-  persona_dni  char(8) NOT NULL,
-  valoracion int(1) NOT NULL DEFAULT '0',
-  foto varchar(100) DEFAULT 'default.png',
-  PRIMARY KEY (idcliente,persona_dni),
-  FOREIGN KEY (persona_dni) REFERENCES datos_persona (dni)
-);
+-- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS login_admin (
-  idlogin_admin int(11) NOT NULL AUTO_INCREMENT,
-  usuario varchar(45) NOT NULL,
-  password char(32) NOT NULL,
-  idadmin int(11) NOT NULL,
-  PRIMARY KEY (idlogin_admin,idadmin),
-  UNIQUE KEY usuario (usuario),
-  FOREIGN KEY (idadmin) REFERENCES administrador_negocio (idadmin)
-);
+--
+-- Estructura de tabla para la tabla `administrador_negocio`
+--
 
+CREATE TABLE IF NOT EXISTS `administrador_negocio` (
+  `idadmin` int(11) NOT NULL AUTO_INCREMENT,
+  `dni` char(8) NOT NULL,
+  PRIMARY KEY (`idadmin`,`dni`),
+  KEY `dni` (`dni`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
-CREATE TABLE IF NOT EXISTS login_cliente (
-  idlogin_cliente int(11) NOT NULL AUTO_INCREMENT,
-  usuario varchar(45) NOT NULL,
-  password char(32) NOT NULL,
-  idcliente int(11) NOT NULL,
-  idfacebook varchar(32) NULL,
-  PRIMARY KEY (idlogin_cliente),
-  FOREIGN KEY (idcliente) REFERENCES cliente (idcliente)
-);
+--
+-- Volcado de datos para la tabla `administrador_negocio`
+--
 
-CREATE TABLE IF NOT EXISTS campo_deportivo (
-  idcampo int(11) NOT NULL AUTO_INCREMENT,
-  nombre varchar(70) NOT NULL,
-  direccion varchar(100) NOT NULL,
-  referencia varchar(100) DEFAULT NULL,
-  estado char(1) DEFAULT NULL,
-  latitud double DEFAULT NULL,
-  longitud double DEFAULT NULL,
-  imagen varchar(255) NOT NULL DEFAULT 'default.png',
-  idubigeo int(11) NOT NULL,
-  idhorario_inicio int(11) NOT NULL,
-  idhorario_fin int(11) NOT NULL,
-  idadmin int(11) NOT NULL,
-  PRIMARY KEY (idcampo,nombre,idubigeo),
-  FOREIGN KEY (idadmin) REFERENCES administrador_negocio (idadmin),
-  FOREIGN KEY (idubigeo) REFERENCES ubigeo (id),
-  FOREIGN KEY (idhorario_inicio) REFERENCES horario (idhorario),
-  FOREIGN KEY (idhorario_fin) REFERENCES horario (idhorario)
-);
+INSERT INTO `administrador_negocio` (`idadmin`, `dni`) VALUES
+(1, '70508270');
 
-CREATE TABLE IF NOT EXISTS comentario (
-  idcomentario int(11) NOT NULL AUTO_INCREMENT,
-  comentario text NOT NULL,
-  fecha datetime NOT NULL,
-  idcampo int(11) NOT NULL,
-  idlogin int(11) NOT NULL,
-  PRIMARY KEY (idcomentario,idcampo,idlogin),
-  FOREIGN KEY (idcampo) REFERENCES campo_deportivo (idcampo),
-  FOREIGN KEY (idlogin) REFERENCES login_cliente (idlogin_cliente)
-);
+-- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS galeria (
-  idgaleria int(11) NOT NULL AUTO_INCREMENT,
-  url varchar(255) NOT NULL,
-  descripcion text,
-  fecha date NOT NULL,
-  idcampo int(11) NOT NULL,
-  PRIMARY KEY (idgaleria,idcampo),
-  UNIQUE (url),
-  FOREIGN KEY (idcampo) REFERENCES campo_deportivo (idcampo)
-);
+--
+-- Estructura de tabla para la tabla `campo_deportivo`
+--
 
-CREATE TABLE IF NOT EXISTS reserva (
-  idreserva int(11) NOT NULL,
-  fecha_sistema date NOT NULL,
-  hora_sistema time NOT NULL,
-  estado char(1) DEFAULT NULL,
-  fecha_reserva date NOT NULL,
-  idcliente int(11) NOT NULL,
-  idcampo int(11) NOT NULL,
-  horario_incio int(11) NOT NULL,
-  horario_fin int(11) NOT NULL,
-  PRIMARY KEY (idreserva),
-  FOREIGN KEY (idcampo) REFERENCES campo_deportivo (idcampo),
-  FOREIGN KEY (idcliente) REFERENCES cliente (idcliente),
-  FOREIGN KEY (horario_incio) REFERENCES horario (idhorario),
-  FOREIGN KEY (horario_fin) REFERENCES horario (idhorario)
-);
+CREATE TABLE IF NOT EXISTS `campo_deportivo` (
+  `idcampo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(70) NOT NULL,
+  `direccion` varchar(100) NOT NULL,
+  `referencia` varchar(100) DEFAULT NULL,
+  `estado` char(1) DEFAULT NULL,
+  `latitud` double DEFAULT NULL,
+  `longitud` double DEFAULT NULL,
+  `imagen` varchar(255) NOT NULL DEFAULT 'default.png',
+  `idubigeo` int(11) NOT NULL,
+  `idhorario_inicio` int(11) NOT NULL,
+  `idhorario_fin` int(11) NOT NULL,
+  `idadmin` int(11) NOT NULL,
+  PRIMARY KEY (`idcampo`,`nombre`,`idubigeo`),
+  KEY `idadmin` (`idadmin`),
+  KEY `idubigeo` (`idubigeo`),
+  KEY `idhorario_inicio` (`idhorario_inicio`),
+  KEY `idhorario_fin` (`idhorario_fin`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
-CREATE TABLE IF NOT EXISTS valoracion (
-  puntaje int(1) NOT NULL DEFAULT '0',
-  idlogin int(11) NOT NULL,
-  idcampo int(11) NOT NULL,
-  fecha datetime NOT NULL,
-  UNIQUE KEY puntaje (puntaje,idlogin,idcampo),
-  FOREIGN KEY (idlogin) REFERENCES login_cliente (idlogin_cliente),
-  FOREIGN KEY (idcampo) REFERENCES campo_deportivo (idcampo)
-);
+--
+-- Volcado de datos para la tabla `campo_deportivo`
+--
 
-INSERT INTO ubigeo (id, departamento, provincia, distrito) VALUES
+INSERT INTO `campo_deportivo` (`idcampo`, `nombre`, `direccion`, `referencia`, `estado`, `latitud`, `longitud`, `imagen`, `idubigeo`, `idhorario_inicio`, `idhorario_fin`, `idadmin`) VALUES
+(3, 'rincón peloter', 'jr. huanca nro. 304', 'al costado del estadio', 'a', NULL, NULL, 'default.jpg', 3113, 1, 2, 1),
+(4, 'estrella', 'jr. los jirasoles nro. 303', 'al costado del hospital', 'a', NULL, NULL, 'default.jpg', 3113, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
+CREATE TABLE IF NOT EXISTS `cliente` (
+  `idcliente` int(11) NOT NULL AUTO_INCREMENT,
+  `persona_dni` char(8) NOT NULL,
+  `valoracion` int(1) NOT NULL DEFAULT '0',
+  `foto` varchar(100) DEFAULT 'default.png',
+  PRIMARY KEY (`idcliente`,`persona_dni`),
+  KEY `persona_dni` (`persona_dni`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`idcliente`, `persona_dni`, `valoracion`, `foto`) VALUES
+(1, '70508270', 0, 'perfil.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentario`
+--
+
+CREATE TABLE IF NOT EXISTS `comentario` (
+  `idcomentario` int(11) NOT NULL AUTO_INCREMENT,
+  `comentario` text NOT NULL,
+  `fecha` datetime NOT NULL,
+  `idcampo` int(11) NOT NULL,
+  `idlogin` int(11) NOT NULL,
+  PRIMARY KEY (`idcomentario`,`idcampo`,`idlogin`),
+  KEY `idcampo` (`idcampo`),
+  KEY `idlogin` (`idlogin`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `datos_persona`
+--
+
+CREATE TABLE IF NOT EXISTS `datos_persona` (
+  `dni` char(8) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `apellido_paterno` varchar(20) NOT NULL,
+  `apellido_materno` varchar(20) NOT NULL,
+  `fechanac` date NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `telefono` char(9) DEFAULT NULL,
+  `celular` char(11) NOT NULL,
+  `sexo` char(1) NOT NULL,
+  PRIMARY KEY (`dni`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `datos_persona`
+--
+
+INSERT INTO `datos_persona` (`dni`, `nombre`, `apellido_paterno`, `apellido_materno`, `fechanac`, `email`, `telefono`, `celular`, `sexo`) VALUES
+('70508270', 'edwin iván', 'cutipa', 'ito', '1992-07-24', 'edi72391@gmail.com', '324565', '950989894', 'm');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `galeria`
+--
+
+CREATE TABLE IF NOT EXISTS `galeria` (
+  `idgaleria` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) NOT NULL,
+  `descripcion` text,
+  `fecha` date NOT NULL,
+  `idcampo` int(11) NOT NULL,
+  PRIMARY KEY (`idgaleria`,`idcampo`),
+  UNIQUE KEY `url` (`url`),
+  KEY `idcampo` (`idcampo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `horario`
+--
+
+CREATE TABLE IF NOT EXISTS `horario` (
+  `idhorario` int(11) NOT NULL AUTO_INCREMENT,
+  `hora` time NOT NULL,
+  PRIMARY KEY (`idhorario`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `horario`
+--
+
+INSERT INTO `horario` (`idhorario`, `hora`) VALUES
+(1, '07:50:00'),
+(2, '10:40:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `login_admin`
+--
+
+CREATE TABLE IF NOT EXISTS `login_admin` (
+  `idlogin_admin` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(45) NOT NULL,
+  `password` char(32) NOT NULL,
+  `idadmin` int(11) NOT NULL,
+  PRIMARY KEY (`idlogin_admin`,`idadmin`),
+  UNIQUE KEY `usuario` (`usuario`),
+  KEY `idadmin` (`idadmin`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `login_cliente`
+--
+
+CREATE TABLE IF NOT EXISTS `login_cliente` (
+  `idlogin_cliente` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(45) NOT NULL,
+  `password` char(32) NOT NULL,
+  `idcliente` int(11) NOT NULL,
+  `idfacebook` varchar(32) NOT NULL,
+  PRIMARY KEY (`idlogin_cliente`),
+  KEY `idcliente` (`idcliente`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `login_cliente`
+--
+
+INSERT INTO `login_cliente` (`idlogin_cliente`, `usuario`, `password`, `idcliente`, `idfacebook`) VALUES
+(1, 'edwin', '8e6e509fba12de7be9ff1cb5333a69d2', 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reserva`
+--
+
+CREATE TABLE IF NOT EXISTS `reserva` (
+  `idreserva` int(11) NOT NULL,
+  `fecha_sistema` date NOT NULL,
+  `hora_sistema` time NOT NULL,
+  `estado` char(1) DEFAULT NULL,
+  `fecha_reserva` date NOT NULL,
+  `idcliente` int(11) NOT NULL,
+  `idcampo` int(11) NOT NULL,
+  `horario_incio` int(11) NOT NULL,
+  `horario_fin` int(11) NOT NULL,
+  PRIMARY KEY (`idreserva`),
+  KEY `idcampo` (`idcampo`),
+  KEY `idcliente` (`idcliente`),
+  KEY `horario_incio` (`horario_incio`),
+  KEY `horario_fin` (`horario_fin`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ubigeo`
+--
+
+CREATE TABLE IF NOT EXISTS `ubigeo` (
+  `id` int(11) NOT NULL,
+  `departamento` varchar(45) NOT NULL,
+  `provincia` varchar(45) NOT NULL,
+  `distrito` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ubigeo`
+--
+
+INSERT INTO `ubigeo` (`id`, `departamento`, `provincia`, `distrito`) VALUES
 (1111, 'AMAZONAS', 'CHACHAPOYAS', 'CHACHAPOYAS'),
 (2112, 'AMAZONAS', 'CHACHAPOYAS', 'ASUNCION'),
 (3113, 'AMAZONAS', 'CHACHAPOYAS', 'BALSAS'),
@@ -1233,7 +1356,7 @@ INSERT INTO ubigeo (id, departamento, provincia, distrito) VALUES
 (11771274, 'LA LIBERTAD', 'SANTIAGO DE CHUCO', 'MOLLEPATA'),
 (11781275, 'LA LIBERTAD', 'SANTIAGO DE CHUCO', 'QUIRUVILCA'),
 (11791276, 'LA LIBERTAD', 'SANTIAGO DE CHUCO', 'SANTA CRUZ DE CHUCA');
-INSERT INTO ubigeo (id, departamento, provincia, distrito) VALUES
+INSERT INTO `ubigeo` (`id`, `departamento`, `provincia`, `distrito`) VALUES
 (11801277, 'LA LIBERTAD', 'SANTIAGO DE CHUCO', 'SITABAMBA'),
 (11811278, 'LA LIBERTAD', 'SANTIAGO DE CHUCO', 'ANGASMARCA'),
 (11821281, 'LA LIBERTAD', 'ASCOPE', 'ASCOPE'),
@@ -1972,3 +2095,99 @@ INSERT INTO ubigeo (id, departamento, provincia, distrito) VALUES
 (178822211, 'TACNA', 'TARATA', 'SUSAPAYA'),
 (178922212, 'TACNA', 'TARATA', 'TARUCACHI'),
 (179022213, 'TACNA', 'TARATA', 'TICACO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `valoracion`
+--
+
+CREATE TABLE IF NOT EXISTS `valoracion` (
+  `puntaje` int(1) NOT NULL DEFAULT '0',
+  `idlogin` int(11) NOT NULL,
+  `idcampo` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  UNIQUE KEY `puntaje` (`puntaje`,`idlogin`,`idcampo`),
+  KEY `idlogin` (`idlogin`),
+  KEY `idcampo` (`idcampo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `valoracion`
+--
+
+INSERT INTO `valoracion` (`puntaje`, `idlogin`, `idcampo`, `fecha`) VALUES
+(2, 1, 3, '2015-08-12 00:00:00'),
+(2, 1, 4, '2015-08-16 00:00:00'),
+(3, 1, 4, '2015-08-11 00:00:00'),
+(4, 1, 3, '2015-08-03 00:00:00');
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `administrador_negocio`
+--
+ALTER TABLE `administrador_negocio`
+  ADD CONSTRAINT `administrador_negocio_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `datos_persona` (`dni`);
+
+--
+-- Filtros para la tabla `campo_deportivo`
+--
+ALTER TABLE `campo_deportivo`
+  ADD CONSTRAINT `campo_deportivo_ibfk_1` FOREIGN KEY (`idadmin`) REFERENCES `administrador_negocio` (`idadmin`),
+  ADD CONSTRAINT `campo_deportivo_ibfk_2` FOREIGN KEY (`idubigeo`) REFERENCES `ubigeo` (`id`),
+  ADD CONSTRAINT `campo_deportivo_ibfk_3` FOREIGN KEY (`idhorario_inicio`) REFERENCES `horario` (`idhorario`),
+  ADD CONSTRAINT `campo_deportivo_ibfk_4` FOREIGN KEY (`idhorario_fin`) REFERENCES `horario` (`idhorario`);
+
+--
+-- Filtros para la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`persona_dni`) REFERENCES `datos_persona` (`dni`);
+
+--
+-- Filtros para la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`idcampo`) REFERENCES `campo_deportivo` (`idcampo`),
+  ADD CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`idlogin`) REFERENCES `login_cliente` (`idlogin_cliente`);
+
+--
+-- Filtros para la tabla `galeria`
+--
+ALTER TABLE `galeria`
+  ADD CONSTRAINT `galeria_ibfk_1` FOREIGN KEY (`idcampo`) REFERENCES `campo_deportivo` (`idcampo`);
+
+--
+-- Filtros para la tabla `login_admin`
+--
+ALTER TABLE `login_admin`
+  ADD CONSTRAINT `login_admin_ibfk_1` FOREIGN KEY (`idadmin`) REFERENCES `administrador_negocio` (`idadmin`);
+
+--
+-- Filtros para la tabla `login_cliente`
+--
+ALTER TABLE `login_cliente`
+  ADD CONSTRAINT `login_cliente_ibfk_1` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`idcliente`);
+
+--
+-- Filtros para la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`idcampo`) REFERENCES `campo_deportivo` (`idcampo`),
+  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`idcliente`),
+  ADD CONSTRAINT `reserva_ibfk_3` FOREIGN KEY (`horario_incio`) REFERENCES `horario` (`idhorario`),
+  ADD CONSTRAINT `reserva_ibfk_4` FOREIGN KEY (`horario_fin`) REFERENCES `horario` (`idhorario`);
+
+--
+-- Filtros para la tabla `valoracion`
+--
+ALTER TABLE `valoracion`
+  ADD CONSTRAINT `valoracion_ibfk_1` FOREIGN KEY (`idlogin`) REFERENCES `login_cliente` (`idlogin_cliente`),
+  ADD CONSTRAINT `valoracion_ibfk_2` FOREIGN KEY (`idcampo`) REFERENCES `campo_deportivo` (`idcampo`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
