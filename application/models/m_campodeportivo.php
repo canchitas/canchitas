@@ -6,47 +6,56 @@ class M_campodeportivo extends CI_Model{
 		$this->resultado = array();
 		$this->load->model('M_ubigeo','ubigeo');
 		$this->load->model('M_comentario','comentario');
+		$this->load->model('M_horario','horario');
+		$this->load->model('M_galeria','galeria');
+		$this->load->model('M_valoracion','valoracion');
 	}
 
 	function listar_camposdeportivos(){
-		$this->db->order_by('valoracion','desc');
-		$consulta = $this->db->get('campo_deportivo');
+		$sql = 'SELECT cd.*,COUNT(v.idcampo) as electores, SUM( v.puntaje ) AS valoracion
+				FROM valoracion AS v INNER JOIN campo_deportivo AS cd
+				WHERE v.idcampo = cd.idcampo GROUP BY idcampo ORDER BY valoracion DESC;';
+		$consulta = $this->db->query($sql);
 		$str = $consulta->result();
 		foreach ($str as $val) {
-			$resultado[] = array('idcampo'      => $val->idcampo, 
-								 'nombre'       => $val->nombre,
-								 'direccion'    => $val->direccion,
-								 'referencia'   => $val->referencia,
-								 'estado'       => $val->estado,
-								 'ubigeo'       => $this->ubigeo->localizacion($val->idubigeo),
-								 'hora_apertura'=> $val->hora_inicio,
-								 'hora_cierre'  => $val->hora_fin,
-								 'valoracion'   => $val->valoracion,
-								 'imagen'       => $val->imagen
-								);	
+			$this->resultado[] = array('idcampo'      => $val->idcampo, 
+									   'nombre'       => ucwords($val->nombre),
+									   'direccion'    => ucwords($val->direccion),
+									   'referencia'   => ucwords($val->referencia),
+									   'estado'       => $val->estado,
+									   'ubigeo'       => $this->ubigeo->localizacion($val->idubigeo),
+									   'hora_apertura'=> $this->horario->hora($val->idhorario_inicio),
+									   'hora_cierre'  => $this->horario->hora($val->idhorario_fin),
+									   'valoracion'   => $this->valoracion->puntajeGlobal($val->idcampo),
+									   'imagen'       => 'upload/cancha/'.$val->imagen
+									);	
 		}
-		return json_encode($resultado);
+		return json_encode($this->resultado);
 	}
 
 	function detalle_campodeportivo($id_cd){
-		$this->db->where('idcampo',$id_cd);
-		$this->db->from('campo_deportivo');
-		$consulta=$this->db->get();
+		$sql = 'SELECT cd.*, SUM( v.puntaje ) AS valoracion
+				FROM valoracion AS v JOIN campo_deportivo AS cd WHERE v.idcampo = cd.idcampo AND cd.idcampo = ?
+				GROUP BY idcampo ORDER BY valoracion DESC;';
+		$consulta = $this->db->query($sql,$id_cd);
 		if ($consulta->num_rows > 0) {
 			$val = $consulta->row();
-			$resultado[] = array('idcampo'      => $val->idcampo , 
-								 'nombre'       => $val->nombre,
-								 'direccion'    => $val->direccion,
-								 'referencia'   => $val->referencia,
-								 'estado'       => $val->estado,
-								 'ubigeo'       => $this->ubigeo->localizacion($val->idubigeo),
-								 'hora_apertura'=> $val->hora_inicio,
-								 'hora_cierre'  => $val->hora_fin,
-								 'valoracion'   => $val->valoracion,
-								 'imagen'       => $val->imagen,
-								 'comentarios'  => $this->comentario->mostrarComentario($val->idcampo) 
+			$this->resultado[] = array('idcampo'      => $val->idcampo , 
+									   'nombre'       => ucwords($val->nombre),
+    								   'direccion'    => ucwords($val->direccion),
+									   'referencia'   => ucwords($val->referencia),
+									   'estado'       => $val->estado,
+									   'latitud'      => $val->latitud,
+									   'longitud'     => $val->longitud,
+									   'ubigeo'       => $this->ubigeo->localizacion($val->idubigeo),
+									   'hora_apertura'=> $this->horario->hora($val->idhorario_inicio),
+									   'hora_cierre'  => $this->horario->hora($val->idhorario_fin),
+									   'valoracion'   => $this->valoracion->puntajeGlobal($val->idcampo),
+									   'imagen'       => 'upload/cancha/'.$val->imagen,
+									   'galeria'      => $this->galeria->imagenes($val->idcampo),
+									   'comentarios'  => $this->comentario->mostrarComentario($val->idcampo) 
 							);	
 		}
-		return json_encode($resultado);
+		return json_encode($this->resultado);
 	}
 }

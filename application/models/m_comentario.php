@@ -3,19 +3,23 @@ class M_comentario extends CI_Model{
 	function __construct(){
 		parent::__construct();
 	}
-
+	function insertarComentario($data=array()){
+		$sql = "INSERT INTO comentario(comentario,fecha,idcampo,idlogin) VALUES (?,?,?,?);";
+		$str = $this->db->query($sql, $data); 
+		return "".$str;
+	}
 	function mostrarComentario($idCampoDeportivo){
 		//$this->db->order_by('fecha','desc');
 		//$consulta = $this->db->get('comentario');
 		//$str = $consulta->result();
-		$this->db->order_by('fecha,hora','ASC');
-		$this->db->where('idcampo',$idCampoDeportivo);
-		$consulta = $this->db->get('comentario');
+		$sql = "SELECT c.idlogin as idlogin, c.comentario as comentario, DATE_FORMAT( c.fecha, '%d/%m/%Y' ) AS fecha, DATE_FORMAT( c.fecha, '%r' ) AS hora
+				FROM comentario as c WHERE c.idcampo = ? ORDER BY fecha ASC;";
+		$consulta = $this->db->query($sql,$idCampoDeportivo);
 		$str = $consulta->result();
 		if ($consulta->num_rows > 0) {
 			$resultado['rpta'] = 'OK';
 			foreach ($str as $val) {
-				$resultado['data'][] = array('comentarista' => $this->comentarista($val->idlogin_cliente),
+				$resultado['data'][] = array('comentarista' => ucwords($this->comentarista($val->idlogin)),
 											 'comentario' => $val->comentario,
 											 'fecha' => $val->fecha,
 											 'hora' => $val->hora
@@ -47,7 +51,7 @@ class M_comentario extends CI_Model{
 		$consulta=$this->db->get();
 		if ($consulta->num_rows > 0) {
 			$val = $consulta->row();
-			return (int)$val->cliente_idcliente;
+			return (int)$val->idlogin_cliente;
 		}else{
 			return 0;
 		}
