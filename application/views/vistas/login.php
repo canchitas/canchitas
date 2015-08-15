@@ -11,7 +11,7 @@
     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Iniciar sesion">
     <hr> 
     <div class="redes">
-      <a class="btn btn-block btn-social btn-facebook">
+      <a class="btn btn-block btn-social btn-facebook" href="<?= $login_url ?>">
        <i class="fa fa-facebook"></i> Iniciar Sesion con Facebook
       </a>
       <a class="btn btn-block btn-social btn-twitter">

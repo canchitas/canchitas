@@ -27,6 +27,12 @@
 				return FALSE;
 			}
 		}
+
+		function login_facebook($id){
+			$this->db->where($id);
+			$this->db->from('login_cliente');
+			$consulta = $this->
+		}
 	}
 
  ?>

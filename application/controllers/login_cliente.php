@@ -9,12 +9,35 @@
 		}
 
 		function login_sesion(){
+			$this->load->library('facebook'); // Automatically picks appId and secret from config
+			$user = $this->facebook->getUser();
+	        
+	        if ($user) {
+	            try {
+	                $data['user_profile'] = $this->facebook->api('/me');
+	            } catch (FacebookApiException $e) {
+	                $user = null;
+	            }
+	            extract($data);
+	            $this->session->set_userdata('id',$data['user_profile']['id']);
+	            $this->session->set_userdata('usuario',$data['user_profile']['name']);
+	            // $data['logout_url'] = site_url('home/logout'); 
+	        }else {
+	            $data['login_url'] = $this->facebook->getLoginUrl(array(
+	                'redirect_uri' => site_url('logincliente'), 
+	                'scope' => array("email",'publish_actions','user_likes') 
+	            ));
+	        }
 
-	 		$this->load->view("iniciar_sesion");
+	 		$this->load->view("iniciar_sesion",$data);
+
 	    } 
 	    function logup_sesion(){
+	    	$this->load->library('facebook');
 
+       		 $this->facebook->destroySession();
 	 		$this->session->sess_destroy();
+	 		
 	 		 redirect(BASE_URL);
 	    } 
 
