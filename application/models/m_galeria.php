@@ -13,7 +13,7 @@ class M_galeria extends CI_Model{
 			$value = $consulta->result();
 			$resultado['rpta'] = 'OK';
 			foreach ($value as $val) {
-				$resultado['data'][] = array('link'        => 'static/assets/'.$val->link,
+				$resultado['data'][] = array('link'        => 'static/upload/'.$val->link,
 											 'descripcion' => $val->descripcion,
 											 'fecha'       => $val->fecha
 										);	

@@ -35,7 +35,7 @@ class M_comentario extends CI_Model{
 
 	public function comentarista($idPersona){
 		$sql = "SELECT CONCAT_WS( ' ', nombre, apellido_paterno ) AS nombres FROM cliente AS c JOIN datos_persona AS dp
-						WHERE c.idcliente =? AND c.persona_dni = dp.dni;";
+						WHERE c.idcliente = ? AND c.idcliente = dp.id_persona;";
 		$consulta = $this->db->query($sql,array($this->cliente($idPersona) ));
 		if($consulta->num_rows>0){
 			$val=$consulta->row();

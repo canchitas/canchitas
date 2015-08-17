@@ -21,8 +21,10 @@ $(function(){
 			alert("No has escrito ningún comentario..!");
 		}else{
 			var data = {fecha:fecha_actual(),hora:hora_actual(),comentario:$('#comentario').val(),idcd:$('#cd').val()};
-			$.post("http://localhost:8085/canchitas/comentar",data,function(e){
-				console.log(e);
+			$.post("http://localhost:8085/canchitas/comentar",data,function(token){
+				$('#comentario').val('');
+				
+				console.log(token);
 			});
 			return false;	
 		}

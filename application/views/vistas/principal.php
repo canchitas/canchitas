@@ -26,8 +26,8 @@
         <div class="col-sm-8">
         	<div class="alert alert-success">
         	<strong>IMPORTANTE</strong> <br> <br> Si quieres incribir tu cancha deportiva en nuestra web solo has click 
-        	<button class="btn btn-danger">Aqui!!</button>
-        	<br>
+        	<a class="btn btn-danger" href="<?php echo BASE_URL.'loginadmin'; ?>">AQUÍ</a>
+          <br>
         	<img src="img/canchita.png"  class="img-responsive img-thumbnail"alt="">
       		</div>
         </div>

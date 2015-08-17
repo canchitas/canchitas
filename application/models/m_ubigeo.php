@@ -33,13 +33,16 @@ class M_ubigeo extends CI_Model{
 	}
 
 	public function provincia($str){
-		$this->db->where('id',$str);
-		$consulta = $this->db->get('ubigeo');
-		$str = $consulta->row();
-		$resultado[] = array('id'    => $str->id,       
-							 'provinicia'=> ucfirst(strtolower($str->provincia))	
-						);	 
-		return $resultado;
+		$sql='SELECT * FROM ubigeo WHERE departamento = ? group by provincia;';
+		$consulta = $this->db->query($sql,$str);
+		$str = $consulta->result();
+		$this->resultado['rpta'] = 'OK';
+		foreach ($str as $val) {
+			$this->resultado['data'][] = array('id'      => $val->id, 
+								 'provincia'       => ucwords($val->provincia),
+								);	
+		}		
+		return ($this->resultado);
 	}
 
 	public function distrito($str){

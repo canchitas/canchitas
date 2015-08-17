@@ -21,21 +21,21 @@
         <div class="col-md-3"></div>
     </div>
             <!--  -->
-         <div class="row">
+      <div class="row">
         <div class="col-md-3">
-        <div class="well">
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
+          <div class="well">
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+              <p>AQUI IRAN LOS FILTROS CREO</p>
+          </div>
+        </div>
 
-        </div>
-        </div>
         <div class="col-md-9">
             <div class="well">
             <?php   
@@ -47,7 +47,7 @@
                 <div class="col-md-5">
                 <img class="featurette-image img-responsive" src="<?php echo BASE_URL.$data[0]['imagen']; ?>" data-src="holder.js/500x500/auto">
                     <br><p class="lead">Calificación
-                    <img src="<?php echo BASE_URL.'static/assets/star_full_'.$campodeportivo['valoracion'].'.png' ?>" height="17"/>
+                    <img src="<?php echo BASE_URL.'static/assets/star_full_'.$campodeportivo['valoracion'].'.png' ?>" height="20" style="margin-bottom:5px;"/>
               
                     <!--
                     <span class="glyphicon glyphicon-star" id="star"></span>
@@ -70,7 +70,7 @@
                      <p class="lead"><?php echo '<B>Dirección:</B> '.$campodeportivo['direccion']; ?> </p>
                      <p class="lead"><?php echo "<B>Ubicación:</B> ".$data[0]['ubigeo'][0]['distrito'].' - '.$data[0]['ubigeo'][0]['provincia'].' - '.$data[0]['ubigeo'][0]['departamento']; ?> </p>
                      <p><a class="btn btn-default" href="<?php echo BASE_URL.'home/detalle_campodeportivo/'.$campodeportivo['idcampo'].'/'; ?>">Ver más &raquo;</a>
-                        <a class="btn btn-success" href="<?php echo BASE_URL.'home/detalle_campodeportivo/'.$campodeportivo['idcampo'].'/'; ?>">REGISTRAR</a>
+                        <a class="btn btn-success" href="<?php echo BASE_URL.'home/detalle_campodeportivo/'.$campodeportivo['idcampo'].'/'; ?>">RESERVAR</a>
                 </div>
             </div>
            </div>
@@ -107,6 +107,8 @@
         <div class="page-header suscribete">
           <button type="button" class="btn btn-danger">Suscribete aqui!!!</button>
       </div>
+      
+
       <div class="row">
         <div class="col-sm-8">
             <div class="alert alert-success">

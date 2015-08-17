@@ -6,10 +6,9 @@
 		}
 
 		function verificar($post=array(),$init=FALSE){
-			// $post=array('nick'=>'elard');
-			$sql="SELECT la.usuario as user, an.idadmin as id, an.persona_dni as dni, concat_ws(' ',dp.nombre,dp.apellido_paterno )as nombres,dp.email as email 
+			$sql="SELECT la.usuario as user, an.idadmin as id, an.idadmin as idadmin, concat_ws(' ',dp.nombre,dp.apellido_paterno )as nombres,dp.email as email 
 				  FROM login_admin as la INNER JOIN administrador_negocio as an,datos_persona as dp 
-				  WHERE la.idlogin_admin = an.idadmin and an.persona_dni = dp.dni and la.usuario = ? and la.password=?;";
+				  WHERE la.idlogin_admin = an.idadmin and an.persona = dp.id_persona and la.usuario = ? and la.password=?;";
 			$consulta = $this->db->query($sql, $post);
 			//$this->db->where($post);
 			//$this->db->from('login_admin');

@@ -12,9 +12,10 @@ class M_campodeportivo extends CI_Model{
 	}
 
 	function listar_camposdeportivos(){
-		$sql = 'SELECT cd.*,COUNT(v.idcampo) as electores, SUM( v.puntaje ) AS valoracion
+		$sql1 = 'SELECT cd.*,COUNT(v.idcampo) as electores, SUM( v.puntaje ) AS valoracion
 				FROM valoracion AS v INNER JOIN campo_deportivo AS cd
 				WHERE v.idcampo = cd.idcampo GROUP BY idcampo ORDER BY valoracion DESC;';
+		$sql = 'SELECT cd.* FROM campo_deportivo AS cd;';
 		$consulta = $this->db->query($sql);
 		$str = $consulta->result();
 		foreach ($str as $val) {
@@ -27,16 +28,17 @@ class M_campodeportivo extends CI_Model{
 									   'hora_apertura'=> $this->horario->hora($val->idhorario_inicio),
 									   'hora_cierre'  => $this->horario->hora($val->idhorario_fin),
 									   'valoracion'   => $this->valoracion->puntajeGlobal($val->idcampo),
-									   'imagen'       => 'upload/cancha/'.$val->imagen
+									   'imagen'       => 'upload/'.$val->imagen
 									);	
 		}
 		return json_encode($this->resultado);
 	}
 
 	function detalle_campodeportivo($id_cd){
-		$sql = 'SELECT cd.*, SUM( v.puntaje ) AS valoracion
+		$sql1 = 'SELECT cd.*, SUM( v.puntaje ) AS valoracion
 				FROM valoracion AS v JOIN campo_deportivo AS cd WHERE v.idcampo = cd.idcampo AND cd.idcampo = ?
 				GROUP BY idcampo ORDER BY valoracion DESC;';
+		$sql = 'SELECT cd.* FROM campo_deportivo AS cd WHERE cd.idcampo = ?';
 		$consulta = $this->db->query($sql,$id_cd);
 		if ($consulta->num_rows > 0) {
 			$val = $consulta->row();
@@ -51,7 +53,7 @@ class M_campodeportivo extends CI_Model{
 									   'hora_apertura'=> $this->horario->hora($val->idhorario_inicio),
 									   'hora_cierre'  => $this->horario->hora($val->idhorario_fin),
 									   'valoracion'   => $this->valoracion->puntajeGlobal($val->idcampo),
-									   'imagen'       => 'upload/cancha/'.$val->imagen,
+									   'imagen'       => 'upload/'.$val->imagen,
 									   'galeria'      => $this->galeria->imagenes($val->idcampo),
 									   'comentarios'  => $this->comentario->mostrarComentario($val->idcampo) 
 							);	

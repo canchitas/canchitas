@@ -1,3 +1,6 @@
+
+<script type="text/javascript" src="<?php echo BASE_URL; ?>static/ajax/comentario.js"></script>
+
 <div class="container">
     <hr>
     <div class="row well">
@@ -39,20 +42,21 @@
             <div class="well">
                 <?php 
                     $data = json_decode($detalle,true);
-                    echo $data[0]['nombre']; 
                 ?>    
-                <h2> <?php echo $data[0]['nombre']; ?>  <img src="<?php echo BASE_URL.'static/assets/star_full_'.$data[0]['valoracion'].'.png'; ?>" height="17"/> </h2>
-                <p>  <?php echo 'Dirección: '.$data[0]['direccion']." | Referencia: ".$data[0]['referencia'];?></p>
-                <p>  <?php echo "Ubicación: ".$data[0]['ubigeo'][0]['distrito'].' - '.$data[0]['ubigeo'][0]['provincia'].' - '.$data[0]['ubigeo'][0]['departamento']; ?></p>
+                <h2> <?php echo $data[0]['nombre']; ?>  <img src="<?php echo BASE_URL.'static/assets/star_full_'.$data[0]['valoracion'].'.png'; ?>" height="24" style="margin-bottom:5px;"/> </h2>
+                <p class="lead">  <?php echo '<B>Dirección:</B> '.$data[0]['direccion'].' </P><P class="lead"><B>Referencia:</B> '.$data[0]['referencia'];?></P>
+                <p class="lead">  <?php echo "<B>Ubicación:</B> ".$data[0]['ubigeo'][0]['distrito'].' - '.$data[0]['ubigeo'][0]['provincia'].' - '.$data[0]['ubigeo'][0]['departamento']; ?></p>
                 <img src="<?php echo BASE_URL.$data[0]['imagen']; ?>" width="200px" height="128px" /><br />
                 <BR />
-                <strong>COMENTARIOS</strong><br /><BR />
+                <strong class="lead">COMENTARIOS</strong><br /><BR />
                 <?php
                 if ($data[0]['comentarios']['rpta'] == 'OK') {
                     foreach ($data[0]['comentarios']['data'] as $str) {
-                        echo '<B>'.$str['comentarista'].'</B> Dice: ';
-                        echo $str['comentario'].'<br />Fecha: '.$str['fecha'].' a las '.$str['hora'].'<BR />';
+                        echo '<P ><B>'.$str['comentarista'].'</B> Dice: ';
+                        echo $str['comentario'].'<br />Fecha: '.$str['fecha'].' a las '.$str['hora'].'</P>';
                     }   
+                    //DIV PARA AGREGAR COMENTARIOS
+                    echo '<DIV id="comentarios"></DIV>';
                 }else{
                     echo "Nadie a comentado, Sé el primero en comentar...!";
                 }
@@ -60,12 +64,12 @@
                 ?>
                     <form id="form_comentario" method="post">
                         <input type="hidden" name="cd" id="cd" value="<?php echo $data[0]['idcampo']?>">
-                        <textarea name="comentario" id="comentario" rows="5" cols="35" placeholder="Comentar acerca de campo deportivo...!"></textarea> <br />
-                        <input type="submit" value="comentar">
+                        <textarea name="comentario" class="form-control" id="comentario" rows="5" cols="110" placeholder="Comentar acerca de campo deportivo...!"></textarea> <br />
+                        <input type="submit" value="COMENTAR" class="btn btn-success">
                     </form>
                 <?php
                 }else{
-                    echo '<h3>Para comentar acerca del campo deportivo <a href="'.BASE_URL.'">Iniciar Sesión</a></h3>';
+                    echo '<h3>Para comentar acerca del campo deportivo <a href="'.BASE_URL.'logincliente">Iniciar Sesión</a></h3>';
                 }   
                 ?>
            </div>
