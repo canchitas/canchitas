@@ -6,7 +6,8 @@ $(document).ready(function(){
 	$("select[name=departamento]").change(function(){
 	    token = $('select[name=departamento]').val();
 	    //var datos = $("#login-cliente").serialize();
-		$.post("http://localhost:8085/canchitas/admin/c_campodeportivo/provincia",{"id":token},function(e){	
+		//$.post("http://localhost:8085/canchitas/admin/c_campodeportivo/provincia",{"id":token},function(e){	
+		$.post("http://localhost/canchitas/admin/c_campodeportivo/provincia",{"id":token},function(e){	
 			var response=JSON.parse(e);
 			var str = '<option value="">Seleccione Provincia</option>';
 			if(response['data']['rpta'] == 'OK'){
@@ -27,7 +28,8 @@ $(document).ready(function(){
 	$("select[name=provincia]").change(function(){
 	    token = $('select[name=provincia]').val();
 	    //var datos = $("#login-cliente").serialize();
-		$.post("http://localhost:8085/canchitas/admin/c_campodeportivo/distrito",{"id":token},function(e){	
+		//$.post("http://localhost:8085/canchitas/admin/c_campodeportivo/distrito",{"id":token},function(e){	
+		$.post("http://localhost/canchitas/admin/c_campodeportivo/distrito",{"id":token},function(e){	
 			var response=JSON.parse(e);
 			var str = '<option value="">Seleccione Distrito</option>';
 			if(response['data']['rpta'] == 'OK'){
@@ -46,7 +48,8 @@ $(document).ready(function(){
 	});
 	//Cambiar selector horario apertura
 	$("select[name=distrito]").change(function(){
-	    $.post("http://localhost:8085/canchitas/c_horario/listarhora",{"id":"","limite":false},function(e){	
+	    //$.post("http://localhost:8085/canchitas/c_horario/listarhora",{"id":"","limite":false},function(e){	
+	    $.post("http://localhost/canchitas/c_horario/listarhora",{"id":"","limite":false},function(e){		
 			var response=JSON.parse(e);
 			var str = '<option value="">Seleccione Hora de Inicio</option>';
 			if(response['data']['rpta'] == 'OK'){
@@ -67,7 +70,8 @@ $(document).ready(function(){
 	$("select[name=horaapertura]").change(function(){
 	    id = $('select[name=horaapertura]').val();	    
 	    console.log("IDHORA: "+token);
-	    $.post("http://localhost:8085/canchitas/c_horario/listarhora",{"id":id,"limite":true},function(e){	
+	    //$.post("http://localhost:8085/canchitas/c_horario/listarhora",{"id":id,"limite":true},function(e){	
+    	$.post("http://localhost/canchitas/c_horario/listarhora",{"id":id,"limite":true},function(e){	
 			var response=JSON.parse(e);
 			var str = '<option value="">Seleccione Hora de Cierre</option>';
 			if(response['data']['rpta'] == 'OK'){
@@ -92,6 +96,7 @@ $(document).ready(function(){
 		if ( $('#comentario').val().trim() === '' ) {
 			alert("No has escrito ningún comentario..!");
 		}else{
+			//$.post("http://localhost:8085/canchitas/registrarcampodeportivo",data,function(token){
 			$.post("http://localhost:8085/canchitas/registrarcampodeportivo",data,function(token){
 				$('#comentario').val('');
 				var str='';
