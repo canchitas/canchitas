@@ -17,7 +17,7 @@ class C_comentario extends CI_Controller{
 		$rpta = $this->comentario->insertarComentario(array($comentario,$date,$idcd,$this->session->userdata('id')));
 		if ($rpta == 1) {
 			$resultado['rpta'] = 'OK';
-			$resultado['data'] = array('nombre'     => ucwords($this->session->userdata('nombre')),
+			$resultado['data'] = array('nombre'     => ucwords($this->session->userdata('nombres')),
 										'comentario' => $comentario,
 										'fecha'      => $fecha,
 										'hora'       => $hora

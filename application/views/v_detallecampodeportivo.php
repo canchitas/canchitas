@@ -53,12 +53,16 @@
                 if ($data[0]['comentarios']['rpta'] == 'OK') {
                     foreach ($data[0]['comentarios']['data'] as $str) {
                         echo '<P ><B>'.$str['comentarista'].'</B> Dice: ';
-                        echo $str['comentario'].'<br />Fecha: '.$str['fecha'].' a las '.$str['hora'].'</P>';
+                        echo $str['comentario'].'<br />Fecha: '.$str['fecha'].' a las '.$str['hora'].'</P><HR />';
                     }   
                     //DIV PARA AGREGAR COMENTARIOS
-                    echo '<DIV id="comentarios"></DIV>';
+                    ?>
+                    <DIV id="nuevocomentario" name="nuevocomentario"></DIV>
+                    <?php
                 }else{
-                    echo "Nadie a comentado, Sé el primero en comentar...!";
+                    ?>
+                    <DIV id="nuevocomentario" name="nuevocomentario"><H4>Nadie a comentado, Sé el primero en comentar...!</H4></DIV>    
+                    <?php
                 }
                 if ($this->session->userdata('nombres') || $this->session->userdata('id')) {
                 ?>
