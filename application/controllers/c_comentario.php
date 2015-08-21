@@ -5,6 +5,7 @@ class C_comentario extends CI_Controller{
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model("M_comentario","comentario");
+		$this->load->model("M_valoracion","valoracion");
 	}
 
 	public function insertar(){
@@ -17,7 +18,7 @@ class C_comentario extends CI_Controller{
 		$rpta = $this->comentario->insertarComentario(array($comentario,$date,$idcd,$this->session->userdata('id')));
 		if ($rpta == 1) {
 			$resultado['rpta'] = 'OK';
-			$resultado['data'] = array('nombre'     => ucwords($this->session->userdata('nombre')),
+			$resultado['data'] = array('nombre'     => ucwords($this->session->userdata('nombres')),
 										'comentario' => $comentario,
 										'fecha'      => $fecha,
 										'hora'       => $hora
@@ -30,9 +31,12 @@ class C_comentario extends CI_Controller{
 		}
 	}
 
-	public function valoracion($valor){
-		$url=$this->security->xss_clean(($this->input->post("url"));
-		$usuario=$this->security->xss_clean(($this->input->post("usuario"));
-		
+	public function valoracion(){
+		$estrellas= $this->security->xss_clean($this->input->post("estrellas"));
+		$campo=$this->security->xss_clean($this->input->post("campo"));
+		$usuario=$this->security->xss_clean($this->input->post("usuario"));
+
+		$var=$this->valoracion->valorar($estrellas,$campo,$usuario);
+			echo json_encode($var);
 	}
 }

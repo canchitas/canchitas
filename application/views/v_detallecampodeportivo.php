@@ -7,7 +7,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 text-center">
         <div class="row">
-            <img class="img-responsive img-search col-md-12" src="<?php echo BASE_URL; ?>static/img/icono3.png" alt="">
+            <!-- <img class="img-responsive img-search col-md-12" src="<?php echo BASE_URL; ?>static/img/icono3.png" alt=""> -->
         </div>
         <div id="buscar-principal">
                 <form action="" id="" class="container">
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-3"></div>
     </div>
-            <!--  -->
+
         <div class="row">
         
             <div class="col-md-9">
@@ -79,27 +79,29 @@
                     }   
                     ?>
                </div>
-           </div>
+
            <div class="col-md-3">
             mapa
             </div>
         </div>
 
     </div> 
+</div> 
 
 
 
 <!-- ********************ocultos***************** -->
-    <input type="text" value="<?php echo $data[0]['url'] ?>" id="id_campodeportivo">
+    <input type="text" value="<?php echo $data[0]['url'] ?>" id="url_campodeportivo">
+    <input type="text" value="<?php echo $data[0]['idcampo'] ?>" id="id_campodeportivo">
     <?php 
        if(!$this->session->userdata('usuario')){
     ?>
-        <input type="hidden" value="" id="login_cliente">
+        <input type="text" value="invalido" id="login_cliente">
     <?php 
     }
     else{
       ?>
-        <input type="hidden" value="" id="login_cliente">
+        <input type="text" value="<?php echo $this->session->userdata('id_cliente') ?>" id="login_cliente">
       
       <?php 
         }

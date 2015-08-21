@@ -10,12 +10,8 @@ $(document).ready(function(){
     onSubmit : function(file , ext){
       if ( ! (ext && /^(jpg)$/.test(ext)) && ! (ext && /^(png)$/.test(ext)) && ! (ext && /^(gif)$/.test(ext)) ){ //Indicamos las extensiones que nos interesan, en este caso jpg,png,gif
         alert('Error: Solo se permiten archivo de Imagen JPG y PNG y GIF.');
-        //Cancelamos la subida
         return false;
       } else {
-        //Desabilitamos el boton una vez que el documento tiene la extension correcta
-        //this.disable();
-        //En este paso podriamos mostrar un gif de cargando o un texto
         $("#contenedorImagen").append('<img src="<?php echo BASE_URL; ?>static/img/loading.gif" />');
       }
     },
@@ -42,7 +38,7 @@ function limpiar_marcadores(lista){
 }
 
 $(document).on("ready", function(){        
-        var formulario = $("#formulario");      
+        var formulario = $("#form-campodeportivo");      
         var punto = new google.maps.LatLng(-15.824668,-70.01533);
         var config = {
             zoom:17,
@@ -65,8 +61,7 @@ $(document).on("ready", function(){
            //PASAR LA INFORMACI�N AL FORMULARIO
            formulario.find("input[name='latitud']").val(lista[0]);
            formulario.find("input[name='longitud']").val(lista[1]);
-           
-           
+
            var marcador = new google.maps.Marker({
                //titulo:prompt("Titulo del marcador?"),
                position:direccion,
@@ -76,11 +71,8 @@ $(document).on("ready", function(){
            });
            //ALMACENAR UN MARCADOR EN EL ARRAY nuevos_marcadores
            nuevos_marcadores.push(marcador);
-           
            google.maps.event.addListener(marcador, "click", function(){
-
            });
-           
            //BORRAR MARCADORES NUEVOS
            limpiar_marcadores(nuevos_marcadores);
            marcador.setMap(mapa);
@@ -97,21 +89,21 @@ $(document).on("ready", function(){
               echo '<H4><B>BIENVENIDO:</B> '.ucwords($this->session->userdata('nombres')).' </H4>';
             }
         ?>
-        <form class="form-registro" id="formulario">
+        <form class="form-registro" id="form-campodeportivo" name="form-campodeportivo" method="POST"> 
           <div class="panel panel-primary">
                 <div class="panel-heading">
                       <h3 class="panel-title">REGISTRAR NUEVO CAMPO DEPORTIVO</h3>
                     </div>
                   <div class="panel-body">
                       
-                <label for="">NOMBRE DEL CAMPO DEPORTIVO</label><input type="text" class="form-control" placeholder="NOMBRE" autofocus>
-                <label for="">DIRECCIÓN</label><input type="text" class="form-control" placeholder="DIRECCIÓN">
-                <label for="">REFERENCIA</label><input type="text" class="form-control" placeholder="REFERENCIA">
-                <label for="">LATITUD</label><input type="text" class="form-control" id="latitud" name="latitud" placeholder="LATITUD" disabled="true">
+                <label for="">NOMBRE DEL CAMPO DEPORTIVO</label><input type="text" class="form-control" placeholder="NOMBRE" autofocus  required />
+                <label for="">DIRECCIÓN</label><input type="text" class="form-control" placeholder="DIRECCIÓN" required />
+                <label for="">REFERENCIA</label><input type="text" class="form-control" placeholder="REFERENCIA"  required />
+                <label for="">LATITUD</label><input type="text" class="form-control" id="latitud" name="latitud" placeholder="LATITUD" disabled="true"  >
                 <label for="">LONGITUD</label><input type="text" class="form-control" id="longitud" name="longitud" placeholder="LONGITUD" disabled="true">
                 <label for="">FOTO DE PORTADA DEL CAMPO DEPORTIVO</label><input type="text" id="foto" name="foto" class="form-control" placeholder="FOTO DE PORTADA" value="default.jpg" disabled="true">
                 <label for="">REGIÓN</label>
-                <select name="departamento" id="departamento" class="form-control">  
+                <select name="departamento" id="departamento" class="form-control"  required >  
                   <option value="">Seleccione Región</option>
                   <?php
                     $var = json_decode($data,true);
@@ -123,20 +115,20 @@ $(document).on("ready", function(){
                   ?>    
                 </select>  
                 <label for="">PROVINCIA</label>
-                <select name="provincia" id="provincia" class="form-control">
-                  <option value="">Seleccione</option>
+                <select name="provincia" id="provincia" class="form-control"  required >
+                  <option value=""></option>
                 </select>
                 <label for="">DISTRITO</label>
-                <select name="distrito" id="distrito" class="form-control">
-                  <option value="">Seleccione</option>
+                <select name="distrito" id="distrito" class="form-control"  required >
+                  <option value=""></option>
                 </select>
-                <label for="">HORA DE APERTURA DE CAMPO DERPORTIVO</label>
-                <select name="horaapertura" id="horaapertura" class="form-control">
-                  <option value="">Seleccione</option>
+                <label for="">HORA DE APERTURA DE CAMPO DEPORTIVO</label>
+                <select name="horaapertura" id="horaapertura" class="form-control"  required >
+                  <option value=""></option>
                 </select>
-                <label for="">HORA DE CIERRE DE CAMPO DERPORTIVO</label>
-                <select name="horacierre" id="horacierre" class="form-control">
-                  <option value="">Seleccione</option>
+                <label for="">HORA DE CIERRE DE CAMPO DEPORTIVO</label>
+                <select name="horacierre" id="horacierre" class="form-control"  required >
+                  <option value=""></option>
                 </select>
                 <br> <br>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">REGISTRAR</button>

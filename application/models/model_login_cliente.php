@@ -17,7 +17,7 @@
 				if($init==TRUE){
 					$consulta=$consulta->row();
 					$this->session->set_userdata('usuario',$consulta->usuario);
-					$this->session->set_userdata('id_cliente',$consulta->cliente_idcliente);
+					$this->session->set_userdata('id_cliente',$consulta->idlogin_cliente);
 					
 				}
 				return TRUE;

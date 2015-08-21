@@ -19,4 +19,14 @@ class C_campodeportivo extends CI_Controller{
 			echo json_encode($var);	
 		}
 	}
+	public function distrito(){
+		$id = $this->security->xss_clean(strip_tags($this->input->post("id")));
+		if ($this->session->userdata('id')) {
+			$var['data'] = $this->ubigeo->distrito($id);
+			echo json_encode($var);	
+		}
+	}
+	public function registrarcampodeportivo(){
+		echo "OK";
+	}
 }

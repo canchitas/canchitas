@@ -21,10 +21,21 @@ $(function(){
 			alert("No has escrito ningún comentario..!");
 		}else{
 			var data = {fecha:fecha_actual(),hora:hora_actual(),comentario:$('#comentario').val(),idcd:$('#cd').val()};
-			$.post("http://localhost:8085/canchitas/comentar",data,function(token){
+			$.post("http://localhost/canchitas/comentar",data,function(e){
+			//$.post("http://localhost:8085/canchitas/comentar",data,function(e){
 				$('#comentario').val('');
-				
-				console.log(token);
+				var token=JSON.parse(e);
+				var str='';
+				if (token['rpta'] == 'OK' ) {
+					var valor = token['data'];
+					console.log(valor);
+					str += '<P><B>'+valor.nombre+'</B> Dice: '+valor.comentario+'<BR />Fecha:'+valor.fecha+' a las '+valor.hora+'</P><HR />';
+					$("#nuevocomentario").empty();
+					$("#nuevocomentario").append(str);
+				}else{
+					//alert("No hemos podido publicar tu comentario..!");
+				}
+
 			});
 			return false;	
 		}
@@ -34,9 +45,22 @@ $(function(){
 
 	// *****************************Valoracion****************************+++
 	$(".estrella").on("click",function(e){
-		estrellas=$(this).attr('href');
-		
-		alert(var1);
+		var estrellas=$(this).attr('href');
+		var campo=$("#url_campodeportivo").val();
+		var idcampo=$("#id_campodeportivo").val();
+		var usuario=$("#login_cliente").val();
+		var datos={'estrellas':estrellas,'usuario':usuario,'campo':idcampo};
+		if(usuario=="invalido"){
+			alert("----NECESITA LOGEARSE---");
+		}
+		else
+		{
+			$.post("http://localhost/codignaiter/canchitas/c_comentario/valoracion",datos,function(e){
+				console.log(e);
+			});
+			// $(location).attr('href',"http://localhost/codignaiter/canchitas/index.php/campodeportivo/"+campo);
+		}
+
 		e.preventDefault();
 	})
 })

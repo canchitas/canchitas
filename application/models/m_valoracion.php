@@ -35,7 +35,32 @@ class M_valoracion extends CI_Model{
 			return 0;
 		}
 	}
-	function valarar(){
+	function valorar($estrellas,$campo,$usuario){
+		$sql = "SELECT * FROM valoracion  WHERE idlogin = '$usuario' and idcampo = '$campo';";
+		$consulta = $this->db->query($sql);
+		$response=new StdClass;
+
+		if($consulta->num_rows>0){
+
+			$sql2 = "UPDATE valoracion set puntaje='$estrellas' WHERE idlogin ='$usuario' and idcampo ='$campo';";
+			$consulta2 = $this->db->query($sql2,$usuario,$campo);
+			$response->actulizado="se actulizado";
+			$response->guardado="no se guardo";
+		}
+		else
+		{
+			$fecha = date("Y-m-d H:i:s");
+			$data = array(
+					'puntaje'  => $estrellas,
+					'idlogin' => $usuario,
+					'idcampo' => $campo,
+					'fecha' => $fecha
+					);
+			$this->db->insert('valoracion',$data);
+			$response->guardado="se guardado";
+			$response->actulizado="no se actulizado";
+		}
+		return $response;
 		
 	}
 }

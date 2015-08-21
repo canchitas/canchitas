@@ -10,6 +10,7 @@ $route['verificarcliente']         			= "login_cliente/verificar";
 $route['registrarse']         			= "registrar_cliente/vista_registro";
 $route['404_override'] 					= '';
 
+$route['valoracion']         			= "c_comentario/valoracion";
 
 
 //ROUTES EDWIN CUTIPA
