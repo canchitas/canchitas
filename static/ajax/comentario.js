@@ -62,5 +62,49 @@ $(function(){
 		}
 
 		e.preventDefault();
-	})
+	});
+
+
+	valor="";
+	$.post("http://localhost/codignaiter/canchitas/c_horario/listarhora",{"id":1,"limite":false},function(e){
+		var response=JSON.parse(e);
+			var str = '<option value="">Seleccione Hora</option>';
+			if(response['data']['rpta'] == 'OK'){
+				var token = response['data']['data'];
+				for (var l in token) {
+	               // console.log(token[l].hora);
+	               str += '<option value="'+token[l].id+'">'+token[l].hora+'</option>';
+	            }
+      			// $("#horacierre").empty();
+      			$("#horaapertura").append(str);	 
+    		}else{
+			 	alert("ERROR CARGANDO DATOS");
+		 	}
+	});
+	// $("select[name=horaapertura]").append();
+	
+
+	$("select[name=horaapertura]").change(function(){
+	    id = $('select[name=horaapertura]').val();	    
+	    // console.log("IDHORA: "+token);
+	    //$.post("http://localhost:8085/canchitas/c_horario/listarhora",{"id":id,"limite":true},function(e){	
+    	$.post("http://localhost/codignaiter/canchitas/c_horario/listarhora",{"id":id,"limite":true},function(e){	
+			var response=JSON.parse(e);
+			var str = '<option value="">Seleccione Hora de Cierre</option>';
+			if(response['data']['rpta'] == 'OK'){
+				var token = response['data']['data'];
+				for (var l in token) {
+	               console.log(token[l].hora);
+	               str += '<option value="'+token[l].id+'">'+token[l].hora+'</option>';
+	            }
+      			$("#horacierre").empty();
+      			$("#horacierre").append(str);	 
+    		}else{
+			 	alert("ERROR CARGANDO DATOS");
+		 	}
+		});
+		// alert("sss");
+		return false;
+	});	
+
 })

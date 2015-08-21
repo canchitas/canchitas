@@ -29,19 +29,20 @@
                 <div class="well">
                     <?php 
                         $data = json_decode($detalle,true);
-                        echo $data[0]['valoracion'];
+                        // echo $data[0]['valoracion'];
                     ?>    
                     <h2 id="estrellas"> <?php echo $data[0]['nombre']; ?>
                     <?php 
+                    $m=0;
                         $estrellas="";
                         for($j=0;$j<$data[0]['valoracion'];$j++){
-                            $m=$j+1;
+                            $m=$m+1;
                             $estrellas.="<a href='$m' class='estrella'><span class='glyphicon glyphicon-star estrellas-verdes'></span></a>";
                         }
                         if($j<5){
-                            $m=$j+1;
                             $r=5-$j;
                             for($k=0;$k<$r;$k++){
+                                $m=$m+1;
                                 $estrellas.="<a href='$m' class='estrella'><span class='glyphicon glyphicon-star estrellas-blancas'></span></a>";
                             }
                         } 
@@ -80,30 +81,58 @@
                     ?>
                </div>
 
-           <div class="col-md-3">
-            mapa
-            </div>
+        </div>
+       <div class="col-md-2">
+        mapa
         </div>
 
     </div> 
+        <div class="row">
+            <div class="well">
+                <form action="<?php echo BASE_URL ?>c_reserva/reservar" method="post">
+                    <input type="hidden" value="<?php echo $data[0]['url'] ?>" id="url_campodeportivo" name="url_campodeportivo">
+                    <input type="hidden" value="<?php echo $data[0]['idcampo'] ?>" id="id_campodeportivo" name="id_campodeportivo">
+                    <?php 
+                       if(!$this->session->userdata('usuario')){
+                    ?>
+                        <input type="hidden" value="invalido" id="login_cliente" name="login_cliente">
+                    <?php 
+                    }
+                    else{
+                      ?>
+                        <input type="hidden" value="<?php echo $this->session->userdata('id_cliente') ?>" id="login_cliente" name="login_cliente">
+                      
+                      <?php 
+                        }
+                     ?> 
+                    <!-- <input type="hidden" id="idusuario" name="idusuario"> -->
+                    <div class="row">
+                      <div class="col-md-12">
+                        <label for="">SELECIONE LA FECHA</label> 
+                        <input type="date" name="fecha" required> 
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">HORA DE INICIO DE RECERVA</label>
+                            <select name="horaapertura" id="horaapertura" class="form-control"  required >
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">HASTA</label>
+                            <select name="horacierre" id="horacierre" class="form-control"  required >
+                              <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="submit" value="RESERVAR" class="btn btn-success"> 
+                    <!-- <a class="btn btn-success" href="#">RESERVAR</a> -->
+                </form>
+            </div>
+        </div>
 </div> 
 
 
 
 <!-- ********************ocultos***************** -->
-    <input type="text" value="<?php echo $data[0]['url'] ?>" id="url_campodeportivo">
-    <input type="text" value="<?php echo $data[0]['idcampo'] ?>" id="id_campodeportivo">
-    <?php 
-       if(!$this->session->userdata('usuario')){
-    ?>
-        <input type="text" value="invalido" id="login_cliente">
-    <?php 
-    }
-    else{
-      ?>
-        <input type="text" value="<?php echo $this->session->userdata('id_cliente') ?>" id="login_cliente">
-      
-      <?php 
-        }
-     ?> 
 

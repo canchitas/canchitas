@@ -6,30 +6,7 @@ $(document).ready(function(){
 	$("select[name=departamento]").change(function(){
 	    token = $('select[name=departamento]').val();
 	    //var datos = $("#login-cliente").serialize();
-<<<<<<< HEAD
-		$.post("http://localhost/codignaiter/canchitas/admin/c_campodeportivo/provincia",{"id":token},function(e){
-			
-			console.log(e);
-			
-			var response=JSON.parse(e);
-			// alert(users['validate']);
-			console.log(response["datas"]["rpta"]);
 
-			// if(e['data']['rpta'] == 'OK'){
-			// 	alert(""+e.data);
-			// 	for (var i in response['data']) {
-   //  				token += '<option value="'+i['provincia']+'">'+i['provincia']+'</option>';	
-   //  			};
-   //  			$("#provincia").empty();
-   //  			$("#provincia").append(token);	 
-    			
-			// 	//$(location).attr('href',"http://localhost/canchitas/");
-			// }
-			// else{
-			// 	alert("ERROR CARGANDO DATOS");
-
-			// }
-=======
 		//$.post("http://localhost:8085/canchitas/admin/c_campodeportivo/provincia",{"id":token},function(e){	
 		$.post("http://localhost/canchitas/admin/c_campodeportivo/provincia",{"id":token},function(e){	
 			var response=JSON.parse(e);
@@ -67,7 +44,7 @@ $(document).ready(function(){
     		}else{
 			 	alert("ERROR CARGANDO DATOS");
 		 	}
->>>>>>> 0e64f7f5fdec2c18b931f39e513fffd86169d59f
+
 		});
 		return false;	    
 	});
@@ -96,7 +73,7 @@ $(document).ready(function(){
 	    id = $('select[name=horaapertura]').val();	    
 	    console.log("IDHORA: "+token);
 	    //$.post("http://localhost:8085/canchitas/c_horario/listarhora",{"id":id,"limite":true},function(e){	
-    	$.post("http://localhost/canchitas/c_horario/listarhora",{"id":id,"limite":true},function(e){	
+    	$.post("http://localhost/codignaiter/canchitas/c_horario/listarhora",{"id":id,"limite":true},function(e){	
 			var response=JSON.parse(e);
 			var str = '<option value="">Seleccione Hora de Cierre</option>';
 			if(response['data']['rpta'] == 'OK'){

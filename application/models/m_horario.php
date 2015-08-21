@@ -17,7 +17,7 @@ class M_horario extends CI_Model{
 			return '00:00:00';
 		}
 	}
-	public function listarhora($hora,$limitar){
+	public function listarhora($hora,$limitar,$campo=NULL){
 		$sql = '';
 		if ($limitar === false) {
 			$sql='SELECT * FROM horario ORDER BY hora ASC;';			
