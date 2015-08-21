@@ -23,84 +23,85 @@
         <div class="col-md-3"></div>
     </div>
             <!--  -->
-         <div class="row">
-        <div class="col-md-3">
-        <div class="well">
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-            <p>AQUI IRAN LOS FILTROS CREO</p>
-
-        </div>
-        </div>
-        <div class="col-md-9">
-            <div class="well">
-                <?php 
-                    $data = json_decode($detalle,true);
-                ?>    
-                <h2> <?php echo $data[0]['nombre']; ?>  <img src="<?php echo BASE_URL.'static/assets/star_full_'.$data[0]['valoracion'].'.png'; ?>" height="24" style="margin-bottom:5px;"/> </h2>
-                <p class="lead">  <?php echo '<B>Dirección:</B> '.$data[0]['direccion'].' </P><P class="lead"><B>Referencia:</B> '.$data[0]['referencia'];?></P>
-                <p class="lead">  <?php echo "<B>Ubicación:</B> ".$data[0]['ubigeo'][0]['distrito'].' - '.$data[0]['ubigeo'][0]['provincia'].' - '.$data[0]['ubigeo'][0]['departamento']; ?></p>
-                <img src="<?php echo BASE_URL.$data[0]['imagen']; ?>" width="200px" height="128px" /><br />
-                <BR />
-                <strong class="lead">COMENTARIOS</strong><br /><BR />
-                <?php
-                if ($data[0]['comentarios']['rpta'] == 'OK') {
-                    foreach ($data[0]['comentarios']['data'] as $str) {
-                        echo '<P ><B>'.$str['comentarista'].'</B> Dice: ';
-                        echo $str['comentario'].'<br />Fecha: '.$str['fecha'].' a las '.$str['hora'].'</P>';
+        <div class="row">
+        
+            <div class="col-md-9">
+                <div class="well">
+                    <?php 
+                        $data = json_decode($detalle,true);
+                        echo $data[0]['valoracion'];
+                    ?>    
+                    <h2 id="estrellas"> <?php echo $data[0]['nombre']; ?>
+                    <?php 
+                        $estrellas="";
+                        for($j=0;$j<$data[0]['valoracion'];$j++){
+                            $m=$j+1;
+                            $estrellas.="<a href='$m' class='estrella'><span class='glyphicon glyphicon-star estrellas-verdes'></span></a>";
+                        }
+                        if($j<5){
+                            $m=$j+1;
+                            $r=5-$j;
+                            for($k=0;$k<$r;$k++){
+                                $estrellas.="<a href='$m' class='estrella'><span class='glyphicon glyphicon-star estrellas-blancas'></span></a>";
+                            }
+                        } 
+                        ?>
+                        <!-- <p class="lead"> -->
+                            <?php echo $estrellas; ?>
+                        <!-- </p> -->
+                    </h2>
+                    <p class="lead">  <?php echo '<B>Dirección:</B> '.$data[0]['direccion'].' </P><P class="lead"><B>Referencia:</B> '.$data[0]['referencia'];?></P>
+                    <p class="lead">  <?php echo "<B>Ubicación:</B> ".$data[0]['ubigeo'][0]['distrito'].' - '.$data[0]['ubigeo'][0]['provincia'].' - '.$data[0]['ubigeo'][0]['departamento']; ?></p>
+                    <img src="<?php echo BASE_URL.$data[0]['imagen']; ?>" width="200px" height="128px" /><br />
+                    <BR />
+                    <strong class="lead">COMENTARIOS</strong><br /><BR />
+                    <?php
+                    if ($data[0]['comentarios']['rpta'] == 'OK') {
+                        foreach ($data[0]['comentarios']['data'] as $str) {
+                            echo '<P ><B>'.$str['comentarista'].'</B> Dice: ';
+                            echo $str['comentario'].'<br />Fecha: '.$str['fecha'].' a las '.$str['hora'].'</P>';
+                        }   
+                        //DIV PARA AGREGAR COMENTARIOS
+                        echo '<DIV id="comentarios"></DIV>';
+                    }else{
+                        echo "Nadie a comentado, Sé el primero en comentar...!";
+                    }
+                    if ($this->session->userdata('nombres') || $this->session->userdata('id')) {
+                    ?>
+                        <form id="form_comentario" method="post">
+                            <input type="hidden" name="cd" id="cd" value="<?php echo $data[0]['idcampo']?>">
+                            <textarea name="comentario" class="form-control" id="comentario" rows="5" cols="110" placeholder="Comentar acerca de campo deportivo...!"></textarea> <br />
+                            <input type="submit" value="COMENTAR" class="btn btn-success">
+                        </form>
+                    <?php
+                    }else{
+                        echo '<h3>Para comentar acerca del campo deportivo <a href="'.BASE_URL.'logincliente">Iniciar Sesión</a></h3>';
                     }   
-                    //DIV PARA AGREGAR COMENTARIOS
-                    echo '<DIV id="comentarios"></DIV>';
-                }else{
-                    echo "Nadie a comentado, Sé el primero en comentar...!";
-                }
-                if ($this->session->userdata('nombres') || $this->session->userdata('id')) {
-                ?>
-                    <form id="form_comentario" method="post">
-                        <input type="hidden" name="cd" id="cd" value="<?php echo $data[0]['idcampo']?>">
-                        <textarea name="comentario" class="form-control" id="comentario" rows="5" cols="110" placeholder="Comentar acerca de campo deportivo...!"></textarea> <br />
-                        <input type="submit" value="COMENTAR" class="btn btn-success">
-                    </form>
-                <?php
-                }else{
-                    echo '<h3>Para comentar acerca del campo deportivo <a href="'.BASE_URL.'logincliente">Iniciar Sesión</a></h3>';
-                }   
-                ?>
+                    ?>
+               </div>
            </div>
-           </div>
-        </div>
-            <!--  -->
-        <div class="page-header suscribete">
-          <button type="button" class="btn btn-danger">Suscribete aqui!!!</button>
-      </div>
-      <div class="row">
-        <div class="col-sm-8">
-            <div class="alert alert-success">
-            <strong>IMPORTANTE</strong> <br> <br> Si quieres incribir tu cancha deportiva en nuestra web solo has click 
-            <button class="btn btn-danger">Aqui!!</button>
-            <br>
-            <img src="<?php echo BASE_URL; ?>static/img/canchita.png"  class="img-responsive img-thumbnail"alt="">
+           <div class="col-md-3">
+            mapa
             </div>
         </div>
-        
-        <div class="col-sm-4">
-        <div class="page-header">
-            <h2>Lista de canchitas inscritas</h2>
-        </div>
-          <div class="list-group">
-            <a href="#" class="list-group-item">Ronaldinho</a>
-            <a href="#" class="list-group-item">Los ganadores</a>
-            <a href="#" class="list-group-item">El vecino</a>
-            <a href="#" class="list-group-item">El goleador</a>
-            <a href="#" class="list-group-item">Paolo Guerreo</a>
-          </div>
-        </div>
-      </div>
 
     </div> 
+
+
+
+<!-- ********************ocultos***************** -->
+    <input type="text" value="<?php echo $data[0]['url'] ?>" id="id_campodeportivo">
+    <?php 
+       if(!$this->session->userdata('usuario')){
+    ?>
+        <input type="hidden" value="" id="login_cliente">
+    <?php 
+    }
+    else{
+      ?>
+        <input type="hidden" value="" id="login_cliente">
+      
+      <?php 
+        }
+     ?> 
+

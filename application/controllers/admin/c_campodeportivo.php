@@ -15,7 +15,7 @@ class C_campodeportivo extends CI_Controller{
 	public function provincia(){
 		$id = $this->security->xss_clean(strip_tags($this->input->post("id")));
 		if ($this->session->userdata('id')) {
-			$var['data'] = $this->ubigeo->provincia($id);
+			$var['datas'] = $this->ubigeo->provincia($id);
 			echo json_encode($var);	
 		}
 	}

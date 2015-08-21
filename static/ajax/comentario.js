@@ -30,4 +30,13 @@ $(function(){
 		}
 		return false;
 	});
+
+
+	// *****************************Valoracion****************************+++
+	$(".estrella").on("click",function(e){
+		estrellas=$(this).attr('href');
+		
+		alert(var1);
+		e.preventDefault();
+	})
 })

@@ -32,7 +32,11 @@ class Home extends CI_Controller{
 		$this->load->view('v_detallecampodeportivo',$datos);
 		$this->load->view("templates/footer");
 
-
+	}
+	function busqueda(){
+		$key=$this->security->xss_clean($this->input->post("key"));
+		$var=$this->campodeportivo->listar_camposdeportivos_buscar($key);
+		echo json_encode($var);
 	}
 }
 ?>

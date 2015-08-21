@@ -29,4 +29,10 @@ class C_comentario extends CI_Controller{
 			echo json_encode($resultado);
 		}
 	}
+
+	public function valoracion($valor){
+		$url=$this->security->xss_clean(($this->input->post("url"));
+		$usuario=$this->security->xss_clean(($this->input->post("usuario"));
+		
+	}
 }

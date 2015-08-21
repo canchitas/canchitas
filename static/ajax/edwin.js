@@ -4,13 +4,13 @@ $(document).ready(function(){
 	$("select[name=departamento]").change(function(){
 	    token = $('select[name=departamento]').val();
 	    //var datos = $("#login-cliente").serialize();
-		console.log(token);
-		$.post("http://localhost:8085/canchitas/admin/c_campodeportivo/provincia",{"id":token},function(e){
+		$.post("http://localhost/codignaiter/canchitas/admin/c_campodeportivo/provincia",{"id":token},function(e){
 			
+			console.log(e);
 			
 			var response=JSON.parse(e);
 			// alert(users['validate']);
-			console.log(response.rpta);
+			console.log(response["datas"]["rpta"]);
 
 			// if(e['data']['rpta'] == 'OK'){
 			// 	alert(""+e.data);

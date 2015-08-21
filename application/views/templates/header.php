@@ -2,15 +2,15 @@
 <header class="header">
   	<div class="container">
   		<div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-5">
     			<a href="#">
             <div class="logotipo">
                   <img src="<?php echo BASE_URL; ?>static/img/icono1.png" class="img-responsive logo">
-                  <span class="nombre-logo">MiCanchita</span>
+                  <span class="nombre-logo">Canchita</span>
             </div>
           </a>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-3">
           <div id="buscar-secundario" class="desaparecer">
             <form action="" id="" class="container">
               <div class="row">
@@ -22,7 +22,7 @@
             </form>
           </div>
         </div>
-  			<div class="col-md-4 vertical-align" >
+  			<div class="col-md-4 col-sm-4 vertical-align" >
 				  <div class="text-right">
           <?php 
             if(!$this->session->userdata('usuario')){

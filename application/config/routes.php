@@ -13,7 +13,7 @@ $route['404_override'] 					= '';
 
 
 //ROUTES EDWIN CUTIPA
-$route['campodeportivo/(:num)/:any'] 	=  "home/detalle_campodeportivo/$1/";
+$route['campodeportivo/(:any)'] 	=  "home/detalle_campodeportivo/$1";
 $route['loginadmin']                    =  'admin/loginadmin_c/admin';
 $route['iniciarsesionadmin']            =  'admin/loginadmin_c/login';
 $route['nuevocampodeportivo']           =  'admin/c_campodeportivo';

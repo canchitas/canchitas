@@ -5,7 +5,7 @@
     			<a href="#">
             <div class="logotipo">
                   <img src="<?php echo BASE_URL; ?>static/img/icono1.png" class="img-responsive logo">
-                  <span class="nombre-logo">MiCanchita</span>
+                  <span class="nombre-logo">Canchita</span>
             </div>
           </a>
         </div>

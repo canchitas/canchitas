@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo BASE_URL; ?>static/ajax/elard.js"></script>
+
 <div class="container">
 	<hr>
     <div class="row well">
@@ -10,7 +12,8 @@
     			<form action="<?php echo BASE_URL;?>home/buscar" id="" class="container">
             <div class="row">
               <div class="col-md-9">
-    				    <input type="search" class="form-control " placeholder="buscar: ejemplo Puno">
+    				    <input type="search" class="form-control" id="busqueda" placeholder="buscar: ejemplo Puno">
+                <button id="elard" type="button">buscar</button>
               </div>
     				  <input type="submit" class="btn btn-success col-md-3" value="Buscar">
             </div>
@@ -19,6 +22,9 @@
     	</div>
     	<div class="col-md-3"></div>
     </div>
+    <div class="row" id="campos_deportivos">
+    </div>
+    <div class="row">
     	<div class="page-header suscribete">
           <a class="btn btn-danger" href="<?php echo BASE_URL.'loginadmin'; ?>">SUSCRIBETE AQUÍ</a>
       </div>
@@ -45,5 +51,6 @@
           </div>
         </div>
       </div>
+    </div>
 
     </div> 

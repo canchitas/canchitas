@@ -34,6 +34,9 @@
 			$consulta =$this->db->get();
 			if($consulta->num_rows>0){
 
+				// $consulta=$consulta->row();
+				// $this->session->set_userdata('usuario',$consulta->usuario);
+				// $this->session->set_userdata('id_cliente',$consulta->cliente_idcliente);
 			}
 			else{
 
@@ -50,6 +53,9 @@
 					'idfacebook' => $id
 					);
 				$this->db->insert('login_cliente',$data);
+
+				// $this->session->set_userdata('usuario',$usuario);
+				// $this->session->set_userdata('id_cliente',$id_ultimo);
 
 			}
 		}

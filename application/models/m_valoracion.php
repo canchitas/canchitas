@@ -35,4 +35,7 @@ class M_valoracion extends CI_Model{
 			return 0;
 		}
 	}
+	function valarar(){
+		
+	}
 }

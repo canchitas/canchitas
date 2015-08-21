@@ -2,15 +2,15 @@ body {
   padding: 0px;
   margin: 0;
 }
-
 a{
 	text-decoration: none;
 	list-style-type: none;
 }
 .header{
 	background: url(../img/canchitas2.jpg);
+	background-color: #353a36;
 	background-attachment:fixed;
-	background-position: 100% 100%;
+	background-position:100% 0;
 	background-size:100%;
 	background-repeat: no-repeat;
 	position: fixed;
@@ -30,8 +30,9 @@ a{
 	}
 .header2{
 	background: url(../img/canchitas2.jpg);
+	background-color: #353a36;
 	background-attachment:fixed;
-	background-position: 100% 100%;
+	background-position: 100% 0;
 	background-size:100%;
 	background-repeat: no-repeat;
 	position: fixed;
@@ -69,7 +70,8 @@ a{
 			}
 			.logo{
 				/*background: blue;*/
-				width: 20%;
+				width: 60px;
+				max-width: 100%;
 				transition:1s all;
 				/*box-shadow:inset 4px 4px 1px rgba(0,0,0, 0.6),inset -4px -4px 1px rgba(0,0,0, 0.6);*/
 			}
@@ -151,6 +153,26 @@ a{
 		padding-top: 6em;
 		padding-bottom: 6em;
 	}
+
+
+#campos_deportivos{
+	width: 80%;
+	margin: 0 auto;
+
+}
+.estrellas-verdes{
+	color: #ffff22;
+	text-shadow:rgba(0, 0, 0, 1) 2px 2px 2px, rgba(0, 0, 0,1) 2px 2px 2px;
+}
+.estrellas-blancas{
+	color: #f5f5f5;
+	text-shadow:rgba(0, 0, 0, 1) 2px 2px 2px, rgba(0, 0, 0,1) 2px 2px 2px;
+}
+
+#estrellas:hover .estrellas-verdes{
+color: #f5f5f5;
+	text-shadow:rgba(0, 0, 0, 1) 2px 2px 2px, rgba(0, 0, 0,1) 2px 2px 2px;
+}
 /*
 #menu{
 	background:#4c4545;
@@ -174,3 +196,15 @@ background: white;
 	padding-left: 0;
     padding-right: 0;
 }*/
+@media(max-width: 1200px){
+	.logo{
+				/*width: 20%;*/
+			}
+
+}
+@media(max-width: 996px){
+	.logo{
+				/*width: 10%;*/
+			}
+
+}
